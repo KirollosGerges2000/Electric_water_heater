@@ -1,4 +1,3 @@
-#ifdef _STD_TYPES_H
 #define _STD_TYPES_H
 
 
@@ -15,4 +14,3 @@ typedef signed long    s32;
 typedef signed long long    s64;
 typedef unsigned int  uint16;
 
-#endif
