@@ -3,31 +3,31 @@ code.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000156  00000000  00000000  00000074  2**1
+  0 .text         0000017c  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  000001ca  2**0
+  1 .data         00000000  00800060  00800060  000001f0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000002  00800060  00800060  000001ca  2**0
+  2 .bss          00000002  00800060  00800060  000001f0  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000001ca  2**0
+  3 .comment      00000030  00000000  00000000  000001f0  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001fc  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000220  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000038  00000000  00000000  00000238  2**0
+  5 .debug_aranges 00000050  00000000  00000000  0000025c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000006a0  00000000  00000000  00000270  2**0
+  6 .debug_info   00000721  00000000  00000000  000002ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000005de  00000000  00000000  00000910  2**0
+  7 .debug_abbrev 00000632  00000000  00000000  000009cd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000330  00000000  00000000  00000eee  2**0
+  8 .debug_line   000003af  00000000  00000000  00000fff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000054  00000000  00000000  00001220  2**2
+  9 .debug_frame  00000084  00000000  00000000  000013b0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003cc  00000000  00000000  00001274  2**0
+ 10 .debug_str    00000404  00000000  00000000  00001434  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000021  00000000  00000000  00001640  2**0
+ 11 .debug_loc    00000021  00000000  00000000  00001838  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000028  00000000  00000000  00001661  2**0
+ 12 .debug_ranges 00000040  00000000  00000000  00001859  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -54,15 +54,15 @@ Disassembly of section .text:
   48:	0c 94 45 00 	jmp	0x8a	; 0x8a <__bad_interrupt>
   4c:	0c 94 45 00 	jmp	0x8a	; 0x8a <__bad_interrupt>
   50:	0c 94 45 00 	jmp	0x8a	; 0x8a <__bad_interrupt>
-  54:	93 00       	.word	0x0093	; ????
-  56:	90 00       	.word	0x0090	; ????
-  58:	8a 00       	.word	0x008a	; ????
-  5a:	84 00       	.word	0x0084	; ????
-  5c:	7e 00       	.word	0x007e	; ????
-  5e:	8d 00       	.word	0x008d	; ????
-  60:	7b 00       	.word	0x007b	; ????
-  62:	81 00       	.word	0x0081	; ????
-  64:	87 00       	.word	0x0087	; ????
+  54:	85 00       	.word	0x0085	; ????
+  56:	82 00       	.word	0x0082	; ????
+  58:	7c 00       	.word	0x007c	; ????
+  5a:	76 00       	.word	0x0076	; ????
+  5c:	70 00       	.word	0x0070	; ????
+  5e:	7f 00       	.word	0x007f	; ????
+  60:	6d 00       	.word	0x006d	; ????
+  62:	73 00       	.word	0x0073	; ????
+  64:	79 00       	.word	0x0079	; ????
 
 00000066 <__ctors_end>:
   66:	11 24       	eor	r1, r1
@@ -85,186 +85,138 @@ Disassembly of section .text:
   7c:	a2 36       	cpi	r26, 0x62	; 98
   7e:	b2 07       	cpc	r27, r18
   80:	e1 f7       	brne	.-8      	; 0x7a <.do_clear_bss_loop>
-  82:	0e 94 a1 00 	call	0x142	; 0x142 <main>
-  86:	0c 94 a9 00 	jmp	0x152	; 0x152 <_exit>
+  82:	0e 94 b4 00 	call	0x168	; 0x168 <main>
+  86:	0c 94 bc 00 	jmp	0x178	; 0x178 <_exit>
 
 0000008a <__bad_interrupt>:
   8a:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-0000008e <ELECTRIC_WATER_HEATER>:
-
-
-	 /*the main process*/
- void  ELECTRIC_WATER_HEATER(void)
-	{
-		DDRD=0xFF;  //set 7_segment as output
-  8e:	8f ef       	ldi	r24, 0xFF	; 255
-  90:	81 bb       	out	0x11, r24	; 17
-		OUTPUT_MODULE(DDRB,5); //set cooling fan as output 
-  92:	87 b3       	in	r24, 0x17	; 23
-  94:	80 62       	ori	r24, 0x20	; 32
-  96:	87 bb       	out	0x17, r24	; 23
-		 INPUT_MODULE(DDRB,3); //set increment temperature button to be input
-  98:	87 b3       	in	r24, 0x17	; 23
-  9a:	87 7f       	andi	r24, 0xF7	; 247
-  9c:	87 bb       	out	0x17, r24	; 23
-		 INPUT_MODULE(DDRB,2); //set decrement temperature button to be input
-  9e:	87 b3       	in	r24, 0x17	; 23
-  a0:	8b 7f       	andi	r24, 0xFB	; 251
-  a2:	87 bb       	out	0x17, r24	; 23
-		/* deceleration, initialize 7_segments by 60*/
-PORTD=0x60;
-  a4:	80 e6       	ldi	r24, 0x60	; 96
-  a6:	82 bb       	out	0x12, r24	; 18
-		
-	/* initialization cooling fan to be off */	
-	OUTPUT_MODULE_OFF(PORTB,5);
-  a8:	88 b3       	in	r24, 0x18	; 24
-  aa:	80 62       	ori	r24, 0x20	; 32
-  ac:	88 bb       	out	0x18, r24	; 24
-  ae:	41 c0       	rjmp	.+130    	; 0x132 <ELECTRIC_WATER_HEATER+0xa4>
-			x=(float)(5*volt)/1023; // to gain the ADC of temperature reading
-			x=x*10;   // out of Temp equation*/
-	
-	while (PINB&(1<<3)  || PINB&(1<<2) )
-	{
-		if(PINB&(1<<3))
-  b0:	b3 9b       	sbis	0x16, 3	; 22
-  b2:	0a c0       	rjmp	.+20     	; 0xc8 <ELECTRIC_WATER_HEATER+0x3a>
-		{
-				counter++;
-  b4:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
-  b8:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  bc:	01 96       	adiw	r24, 0x01	; 1
-  be:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  c2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
-  c6:	0b c0       	rjmp	.+22     	; 0xde <ELECTRIC_WATER_HEATER+0x50>
-				}
-else if(PINB&(1<<2))
-  c8:	b2 9b       	sbis	0x16, 2	; 22
-  ca:	09 c0       	rjmp	.+18     	; 0xde <ELECTRIC_WATER_HEATER+0x50>
-	{
-		counter--;
-  cc:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
-  d0:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  d4:	01 97       	sbiw	r24, 0x01	; 1
-  d6:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  da:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+0000008e <seven_segments_on>:
 }
 
-		switch(counter)
-  de:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
-  e2:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  e6:	35 96       	adiw	r30, 0x05	; 5
-  e8:	e9 30       	cpi	r30, 0x09	; 9
-  ea:	f1 05       	cpc	r31, r1
-  ec:	f0 f4       	brcc	.+60     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-  ee:	e6 5d       	subi	r30, 0xD6	; 214
-  f0:	ff 4f       	sbci	r31, 0xFF	; 255
-  f2:	0c 94 a3 00 	jmp	0x146	; 0x146 <__tablejump2__>
-		{
-			case 1:
-			PORTD=0x65;
-  f6:	85 e6       	ldi	r24, 0x65	; 101
-  f8:	82 bb       	out	0x12, r24	; 18
-			break;
-  fa:	17 c0       	rjmp	.+46     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-			case -1:
-			PORTD=0x55;
-  fc:	85 e5       	ldi	r24, 0x55	; 85
-  fe:	82 bb       	out	0x12, r24	; 18
-			break;
- 100:	14 c0       	rjmp	.+40     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-			case 2:
-			PORTD=0x70;
- 102:	80 e7       	ldi	r24, 0x70	; 112
- 104:	82 bb       	out	0x12, r24	; 18
-			break;
- 106:	11 c0       	rjmp	.+34     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-			case -2:
-			PORTD=0x50;
- 108:	80 e5       	ldi	r24, 0x50	; 80
- 10a:	82 bb       	out	0x12, r24	; 18
-			break;
- 10c:	0e c0       	rjmp	.+28     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-			case 3:
-			PORTD=0x75;
- 10e:	85 e7       	ldi	r24, 0x75	; 117
- 110:	82 bb       	out	0x12, r24	; 18
-			break;
- 112:	0b c0       	rjmp	.+22     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-		   case -3:
-	        PORTD=0x45;
- 114:	85 e4       	ldi	r24, 0x45	; 69
- 116:	82 bb       	out	0x12, r24	; 18
-		    break;
- 118:	08 c0       	rjmp	.+16     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-		    case 0:
-			PORTD=0x60;
- 11a:	80 e6       	ldi	r24, 0x60	; 96
- 11c:	82 bb       	out	0x12, r24	; 18
-			break;
- 11e:	05 c0       	rjmp	.+10     	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-		case -4:
-		PORTD=0x40;
- 120:	80 e4       	ldi	r24, 0x40	; 64
- 122:	82 bb       	out	0x12, r24	; 18
-		break;
- 124:	02 c0       	rjmp	.+4      	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-		case -5:
-		PORTD=0x35;
- 126:	85 e3       	ldi	r24, 0x35	; 53
- 128:	82 bb       	out	0x12, r24	; 18
-		break;
-			
-		}
-		while(PINB&(1<<2) || PINB&(1<<3));
- 12a:	b2 99       	sbic	0x16, 2	; 22
- 12c:	fe cf       	rjmp	.-4      	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
- 12e:	b3 99       	sbic	0x16, 3	; 22
- 130:	fc cf       	rjmp	.-8      	; 0x12a <ELECTRIC_WATER_HEATER+0x9c>
-		{
-		/*volt = ADC_readChannel(0); // read channel two where the temp sensor is connect
-			x=(float)(5*volt)/1023; // to gain the ADC of temperature reading
-			x=x*10;   // out of Temp equation*/
-	
-	while (PINB&(1<<3)  || PINB&(1<<2) )
- 132:	b3 99       	sbic	0x16, 3	; 22
- 134:	bd cf       	rjmp	.-134    	; 0xb0 <ELECTRIC_WATER_HEATER+0x22>
- 136:	b2 99       	sbic	0x16, 2	; 22
- 138:	bb cf       	rjmp	.-138    	; 0xb0 <ELECTRIC_WATER_HEATER+0x22>
-		}
-		while(PINB&(1<<2) || PINB&(1<<3));
-	}
-	
 
-OUTPUT_MODULE_ON(PORTB,3);
- 13a:	88 b3       	in	r24, 0x18	; 24
- 13c:	87 7f       	andi	r24, 0xF7	; 247
- 13e:	88 bb       	out	0x18, r24	; 24
+void seven_segments_off(void)
+{
+		DDRD=0xFF;
+  8e:	80 e6       	ldi	r24, 0x60	; 96
+  90:	82 bb       	out	0x12, r24	; 18
+  92:	45 c0       	rjmp	.+138    	; 0x11e <seven_segments_on+0x90>
+  94:	b3 9b       	sbis	0x16, 3	; 22
+  96:	0a c0       	rjmp	.+20     	; 0xac <seven_segments_on+0x1e>
+  98:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  9c:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  a0:	01 96       	adiw	r24, 0x01	; 1
+  a2:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  a6:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  aa:	0b c0       	rjmp	.+22     	; 0xc2 <seven_segments_on+0x34>
+  ac:	b2 9b       	sbis	0x16, 2	; 22
+  ae:	09 c0       	rjmp	.+18     	; 0xc2 <seven_segments_on+0x34>
+  b0:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  b4:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  b8:	01 97       	sbiw	r24, 0x01	; 1
+  ba:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  be:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  c2:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  c6:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  ca:	35 96       	adiw	r30, 0x05	; 5
+  cc:	e9 30       	cpi	r30, 0x09	; 9
+  ce:	f1 05       	cpc	r31, r1
+  d0:	f0 f4       	brcc	.+60     	; 0x10e <seven_segments_on+0x80>
+  d2:	e6 5d       	subi	r30, 0xD6	; 214
+  d4:	ff 4f       	sbci	r31, 0xFF	; 255
+  d6:	0c 94 b6 00 	jmp	0x16c	; 0x16c <__tablejump2__>
+  da:	85 e6       	ldi	r24, 0x65	; 101
+  dc:	82 bb       	out	0x12, r24	; 18
+  de:	17 c0       	rjmp	.+46     	; 0x10e <seven_segments_on+0x80>
+  e0:	85 e5       	ldi	r24, 0x55	; 85
+  e2:	82 bb       	out	0x12, r24	; 18
+  e4:	14 c0       	rjmp	.+40     	; 0x10e <seven_segments_on+0x80>
+  e6:	80 e7       	ldi	r24, 0x70	; 112
+  e8:	82 bb       	out	0x12, r24	; 18
+  ea:	11 c0       	rjmp	.+34     	; 0x10e <seven_segments_on+0x80>
+  ec:	80 e5       	ldi	r24, 0x50	; 80
+  ee:	82 bb       	out	0x12, r24	; 18
+  f0:	0e c0       	rjmp	.+28     	; 0x10e <seven_segments_on+0x80>
+  f2:	85 e7       	ldi	r24, 0x75	; 117
+  f4:	82 bb       	out	0x12, r24	; 18
+  f6:	0b c0       	rjmp	.+22     	; 0x10e <seven_segments_on+0x80>
+  f8:	85 e4       	ldi	r24, 0x45	; 69
+  fa:	82 bb       	out	0x12, r24	; 18
+  fc:	08 c0       	rjmp	.+16     	; 0x10e <seven_segments_on+0x80>
+  fe:	80 e6       	ldi	r24, 0x60	; 96
+ 100:	82 bb       	out	0x12, r24	; 18
+ 102:	05 c0       	rjmp	.+10     	; 0x10e <seven_segments_on+0x80>
+ 104:	80 e4       	ldi	r24, 0x40	; 64
+ 106:	82 bb       	out	0x12, r24	; 18
+ 108:	02 c0       	rjmp	.+4      	; 0x10e <seven_segments_on+0x80>
+ 10a:	85 e3       	ldi	r24, 0x35	; 53
+ 10c:	82 bb       	out	0x12, r24	; 18
+ 10e:	b2 99       	sbic	0x16, 2	; 22
+ 110:	fe cf       	rjmp	.-4      	; 0x10e <seven_segments_on+0x80>
+ 112:	b3 99       	sbic	0x16, 3	; 22
+ 114:	fc cf       	rjmp	.-8      	; 0x10e <seven_segments_on+0x80>
+ 116:	b3 99       	sbic	0x16, 3	; 22
+ 118:	bd cf       	rjmp	.-134    	; 0x94 <seven_segments_on+0x6>
+ 11a:	b2 99       	sbic	0x16, 2	; 22
+ 11c:	bb cf       	rjmp	.-138    	; 0x94 <seven_segments_on+0x6>
+ 11e:	88 b3       	in	r24, 0x18	; 24
+ 120:	80 34       	cpi	r24, 0x40	; 64
+ 122:	c9 f3       	breq	.-14     	; 0x116 <seven_segments_on+0x88>
+ 124:	08 95       	ret
 
-	}
- 140:	f8 cf       	rjmp	.-16     	; 0x132 <ELECTRIC_WATER_HEATER+0xa4>
+00000126 <ELECTRIC_WATER_HEATER>:
+ 126:	8f ef       	ldi	r24, 0xFF	; 255
+ 128:	81 bb       	out	0x11, r24	; 17
+ 12a:	87 b3       	in	r24, 0x17	; 23
+ 12c:	80 62       	ori	r24, 0x20	; 32
+ 12e:	87 bb       	out	0x17, r24	; 23
+ 130:	87 b3       	in	r24, 0x17	; 23
+ 132:	80 64       	ori	r24, 0x40	; 64
+ 134:	87 bb       	out	0x17, r24	; 23
+ 136:	87 b3       	in	r24, 0x17	; 23
+ 138:	87 7f       	andi	r24, 0xF7	; 247
+ 13a:	87 bb       	out	0x17, r24	; 23
+ 13c:	87 b3       	in	r24, 0x17	; 23
+ 13e:	8b 7f       	andi	r24, 0xFB	; 251
+ 140:	87 bb       	out	0x17, r24	; 23
+ 142:	87 b3       	in	r24, 0x17	; 23
+ 144:	8d 7f       	andi	r24, 0xFD	; 253
+ 146:	87 bb       	out	0x17, r24	; 23
+ 148:	80 e6       	ldi	r24, 0x60	; 96
+ 14a:	82 bb       	out	0x12, r24	; 18
+ 14c:	88 b3       	in	r24, 0x18	; 24
+ 14e:	8f 7d       	andi	r24, 0xDF	; 223
+ 150:	88 bb       	out	0x18, r24	; 24
+ 152:	88 b3       	in	r24, 0x18	; 24
+ 154:	8f 7b       	andi	r24, 0xBF	; 191
+ 156:	88 bb       	out	0x18, r24	; 24
+ 158:	b1 9b       	sbis	0x16, 1	; 22
+ 15a:	fe cf       	rjmp	.-4      	; 0x158 <ELECTRIC_WATER_HEATER+0x32>
+ 15c:	0e 94 47 00 	call	0x8e	; 0x8e <seven_segments_on>
+ 160:	88 b3       	in	r24, 0x18	; 24
+ 162:	80 64       	ori	r24, 0x40	; 64
+ 164:	88 bb       	out	0x18, r24	; 24
+ 166:	f8 cf       	rjmp	.-16     	; 0x158 <ELECTRIC_WATER_HEATER+0x32>
 
-00000142 <main>:
+00000168 <main>:
  * Author : Kirollos Gerges Asaad
  */ 
 #include "Electric water heater.c"
 int main(void)
 {
    ELECTRIC_WATER_HEATER();
- 142:	0e 94 47 00 	call	0x8e	; 0x8e <ELECTRIC_WATER_HEATER>
+ 168:	0e 94 93 00 	call	0x126	; 0x126 <ELECTRIC_WATER_HEATER>
 
-00000146 <__tablejump2__>:
- 146:	ee 0f       	add	r30, r30
- 148:	ff 1f       	adc	r31, r31
- 14a:	05 90       	lpm	r0, Z+
- 14c:	f4 91       	lpm	r31, Z
- 14e:	e0 2d       	mov	r30, r0
- 150:	09 94       	ijmp
+0000016c <__tablejump2__>:
+ 16c:	ee 0f       	add	r30, r30
+ 16e:	ff 1f       	adc	r31, r31
+ 170:	05 90       	lpm	r0, Z+
+ 172:	f4 91       	lpm	r31, Z
+ 174:	e0 2d       	mov	r30, r0
+ 176:	09 94       	ijmp
 
-00000152 <_exit>:
- 152:	f8 94       	cli
+00000178 <_exit>:
+ 178:	f8 94       	cli
 
-00000154 <__stop_program>:
- 154:	ff cf       	rjmp	.-2      	; 0x154 <__stop_program>
+0000017a <__stop_program>:
+ 17a:	ff cf       	rjmp	.-2      	; 0x17a <__stop_program>
