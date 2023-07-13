@@ -13,4 +13,5 @@ typedef signed short    s16;
 typedef signed long    s32;
 typedef signed long long    s64;
 typedef unsigned int  uint16;
+typedef signed int   int16;
 
