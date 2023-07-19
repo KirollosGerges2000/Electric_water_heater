@@ -21,12 +21,14 @@ void ADC_init(void)
 
 unsigned short ADC_readChannel(unsigned char channel_num)
 {
-//	channel_num &= 0x07; /* channel number must be from 0 --> 7 */
+	channel_num &= 0x07; /* channel number must be from 0 --> 7 */
 	ADMUX &= 0xE0; /* clear first 5 bits in the ADMUX (channel number MUX4:0 bits) before set the required channel */
 	ADMUX = ADMUX | channel_num; /* choose the correct channel by setting the channel number in MUX4:0 bits */
 	SET_BIT(ADCSRA,6); /* start conversion write '1' to ADSC */
-//	ADCSRA |= (1<<ADSC);
+	//ADCSRA |= (1<<ADSC);
 	while(BIT_IS_CLEAR(ADCSRA,4)); /* wait for conversion to complete ADIF becomes '1' */
-	SET_BIT(ADCSRA,4); /* clear ADIF by write '1' to it :) */
+		SET_BIT(ADCSRA,4); /* clear ADIF by write '1' to it :) */
 	return ADC; /* return the data register */
+	
+
 }
