@@ -34,6 +34,7 @@ int16 counter = 0;
 		OUTPUT_MODULE_ON(PORTB,0);
 		OUTPUT_MODULE_ON(PORTA,7);
 		
+	INT_interrupt();
 	
 		//super loop for repeating this code infinitely
 		while(1)  
