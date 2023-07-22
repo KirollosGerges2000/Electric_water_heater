@@ -106,8 +106,8 @@ Disassembly of section .text:
   b0:	08 95       	ret
 
 000000b2 <INT_interrupt>:
-  b2:	86 ee       	ldi	r24, 0xE6	; 230
-  b4:	99 ef       	ldi	r25, 0xF9	; 249
+  b2:	8e ef       	ldi	r24, 0xFE	; 254
+  b4:	9f ef       	ldi	r25, 0xFF	; 255
   b6:	9d bd       	out	0x2d, r25	; 45
   b8:	8c bd       	out	0x2c, r24	; 44
   ba:	1f bc       	out	0x2f, r1	; 47
@@ -169,8 +169,8 @@ Disassembly of section .text:
  13a:	ef 93       	push	r30
  13c:	ff 93       	push	r31
  13e:	0e 94 64 00 	call	0xc8	; 0xc8 <TEMPERature_sensor>
- 142:	86 ee       	ldi	r24, 0xE6	; 230
- 144:	99 ef       	ldi	r25, 0xF9	; 249
+ 142:	8e ef       	ldi	r24, 0xFE	; 254
+ 144:	9f ef       	ldi	r25, 0xFF	; 255
  146:	9d bd       	out	0x2d, r25	; 45
  148:	8c bd       	out	0x2c, r24	; 44
  14a:	ff 91       	pop	r31
@@ -252,25 +252,25 @@ Disassembly of section .text:
  1ec:	08 95       	ret
 
 000001ee <ELECTRIC_WATER_HEATER>:
- 1ee:	0e 94 47 00 	call	0x8e	; 0x8e <ADC_init>
- 1f2:	8f ef       	ldi	r24, 0xFF	; 255
- 1f4:	81 bb       	out	0x11, r24	; 17
- 1f6:	b8 9a       	sbi	0x17, 0	; 23
- 1f8:	d7 9a       	sbi	0x1a, 7	; 26
- 1fa:	bd 9a       	sbi	0x17, 5	; 23
- 1fc:	be 9a       	sbi	0x17, 6	; 23
- 1fe:	bc 9a       	sbi	0x17, 4	; 23
- 200:	bb 98       	cbi	0x17, 3	; 23
- 202:	ba 98       	cbi	0x17, 2	; 23
- 204:	b9 98       	cbi	0x17, 1	; 23
- 206:	80 e6       	ldi	r24, 0x60	; 96
- 208:	82 bb       	out	0x12, r24	; 18
- 20a:	c4 98       	cbi	0x18, 4	; 24
- 20c:	c5 98       	cbi	0x18, 5	; 24
- 20e:	c6 98       	cbi	0x18, 6	; 24
- 210:	c0 9a       	sbi	0x18, 0	; 24
- 212:	df 9a       	sbi	0x1b, 7	; 27
- 214:	0e 94 59 00 	call	0xb2	; 0xb2 <INT_interrupt>
+ 1ee:	0e 94 59 00 	call	0xb2	; 0xb2 <INT_interrupt>
+ 1f2:	0e 94 47 00 	call	0x8e	; 0x8e <ADC_init>
+ 1f6:	8f ef       	ldi	r24, 0xFF	; 255
+ 1f8:	81 bb       	out	0x11, r24	; 17
+ 1fa:	b8 9a       	sbi	0x17, 0	; 23
+ 1fc:	d7 9a       	sbi	0x1a, 7	; 26
+ 1fe:	bd 9a       	sbi	0x17, 5	; 23
+ 200:	be 9a       	sbi	0x17, 6	; 23
+ 202:	bc 9a       	sbi	0x17, 4	; 23
+ 204:	bb 98       	cbi	0x17, 3	; 23
+ 206:	ba 98       	cbi	0x17, 2	; 23
+ 208:	b9 98       	cbi	0x17, 1	; 23
+ 20a:	80 e6       	ldi	r24, 0x60	; 96
+ 20c:	82 bb       	out	0x12, r24	; 18
+ 20e:	c4 98       	cbi	0x18, 4	; 24
+ 210:	c5 98       	cbi	0x18, 5	; 24
+ 212:	c6 98       	cbi	0x18, 6	; 24
+ 214:	c0 9a       	sbi	0x18, 0	; 24
+ 216:	df 9a       	sbi	0x1b, 7	; 27
  218:	c0 e4       	ldi	r28, 0x40	; 64
  21a:	d1 e0       	ldi	r29, 0x01	; 1
  21c:	10 e1       	ldi	r17, 0x10	; 16

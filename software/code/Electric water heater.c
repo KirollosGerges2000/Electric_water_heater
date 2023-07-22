@@ -13,7 +13,8 @@ int16 counter = 0;
 
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
-	{
+	{	
+		INT_interrupt();  /* initialize internally interrupt Timer0*/
 		ADC_init(); /* initialize ADC driver */
 		DDRD=0xFF;
 		OUTPUT_MODULE(DDRB,0); //set Enable of first 7 segment as output
@@ -34,7 +35,7 @@ int16 counter = 0;
 		OUTPUT_MODULE_ON(PORTB,0);
 		OUTPUT_MODULE_ON(PORTA,7);
 		
-	INT_interrupt();
+
 	
 		//super loop for repeating this code infinitely
 		while(1)  
