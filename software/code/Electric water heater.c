@@ -7,13 +7,13 @@
 #include "DIO.h"
 #include "interrupt.c"
 volatile uint16 volt =0;
-f32 x =0;
+volatile f32 x =0;
+ u8 average = 0;
 int16 counter = 0;
-
-
+u8 i=0;
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
-	{	
+	{	 
 		INT_interrupt();  /* initialize internally interrupt Timer0*/
 		ADC_init(); /* initialize ADC driver */
 		DDRD=0xFF;
@@ -52,8 +52,9 @@ int16 counter = 0;
 				
 					seven_segments();
 			
-					if(x>30)
+					if(x>40)
 					{
+						
 							OUTPUT_MODULE_ON(PORTB,5);
 					}
 					else
@@ -70,15 +71,28 @@ int16 counter = 0;
 
 		
 	
-	
-	
-	
-void TEMPERature_sensor(void)
-{
-	volt = ADC_readChannel(0); // read channel two where the temp sensor is connect
+	void Temperature_reading(void)
+	{
+		volt = ADC_readChannel(0); // read channel two where the temp sensor is connect
 			x=(float)(5*volt)/1023; // to gain the ADC of temperature reading
-			x=x*100;   // out of Temp equation
-}
+			x=x*100;   //the reading of temperature
+			Avg_reading();
+	}
+	
+	
+void Avg_reading(void)
+{
+	  
+	x++;
+	i++;
+	if(i>=9)
+	{
+		average=x/10;
+		i=0;
+		x=0;
+	}
+	
+	}
 
 
 
