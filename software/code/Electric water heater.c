@@ -7,8 +7,9 @@
 #include "DIO.h"
 #include "interrupt.c"
 volatile uint16 volt =0;
-volatile f32 x =0;
- u8 average = 0;
+volatile f32 x = 0;
+ static f32  average ;
+  f32 sum;
 int16 counter = 0;
 u8 i=0;
 	 /*the main process*/
@@ -51,16 +52,8 @@ u8 i=0;
 					}
 				
 					seven_segments();
-			
-					if(x>40)
-					{
-						
-							OUTPUT_MODULE_ON(PORTB,5);
-					}
-					else
-					{
-						OUTPUT_MODULE_OFF(PORTB,5);
-					} 
+			ELEMENTS();
+					
 					
 				}
 			
@@ -76,20 +69,20 @@ u8 i=0;
 		volt = ADC_readChannel(0); // read channel two where the temp sensor is connect
 			x=(float)(5*volt)/1023; // to gain the ADC of temperature reading
 			x=x*100;   //the reading of temperature
-			Avg_reading();
+			Avg_reading();  //the equations of average 10 temperature reading 
 	}
 	
 	
 void Avg_reading(void)
 {
 	  
-	x++;
+sum=sum+x;
 	i++;
-	if(i>=9)
+	if(i==9)
 	{
-		average=x/10;
+		 average=(sum)/10;
 		i=0;
-		x=0;
+		sum=0;
 	}
 	
 	}
@@ -121,6 +114,7 @@ void seven_segments(void)
 		{
 			case 1:
 			PORTD=0x65;
+			
 			break;
 			case -1:
 			PORTD=0x55;
@@ -159,4 +153,145 @@ void seven_segments(void)
 	
 }
 
-
+void ELEMENTS (void)
+{
+	
+	if(PORTD == 0x65)
+	{
+		if(average>=70)
+			{
+				OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate	
+				OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+			}
+			else if(average<=60)
+			{
+				OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+				OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+		}
+		
+	}
+	
+		else if(PORTD == 0x70)
+		{
+			if(average>=75)
+			{
+				OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+				OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+			}
+			else if(average<=65)
+			{
+				OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+				OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+			}
+			
+		}
+		
+		else if(PORTD == 0x75)
+		{
+			if(average>=80)
+			{
+				OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+				OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+			}
+			else if(average<=70)
+			{
+				OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+				OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+			}
+			
+			else if(PORTD == 0x60)
+			{
+				if(average>=65)
+				{
+					OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+					OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+				}
+				else if(average<=55)
+				{
+					OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+					OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+				}
+				
+			}
+			
+				else if(PORTD == 0x55)
+				{
+					if(average>=60)
+					{
+						OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+						OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+					}
+					else if(average<=50)
+					{
+						OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+						OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+					}
+					
+				}
+			
+				else if(PORTD == 0x50)
+				{
+					if(average>=55)
+					{
+						OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+						OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+					}
+					else if(average<=45)
+					{
+						OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+						OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+					}
+					
+				}
+				
+				else if(PORTD == 0x45)
+				{
+					if(average>=50)
+					{
+						OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+						OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+					}
+					else if(average<=40)
+					{
+						OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+						OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+					}
+					
+				}
+				
+				else if(PORTD == 0x40)
+				{
+					if(average>=45)
+					{
+						OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+						OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+					}
+					else if(average<=35)
+					{
+						OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+						OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+					}
+					
+				}
+				
+					else if(PORTD == 0x35)
+					{
+						if(average>=40)
+						{
+							OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
+							OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+						}
+						else if(average<=30)
+						{
+							OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
+							OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+						}
+						
+					}
+					
+				
+				
+			
+			
+		}
+}
