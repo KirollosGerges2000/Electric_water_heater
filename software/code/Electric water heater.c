@@ -6,6 +6,7 @@
 #include "ADC.c"
 #include "DIO.h"
 #include "interrupt.c"
+#include "I2C.h"
 volatile uint16 volt =0;
 volatile f32 x = 0;
  static f32  average ;
@@ -15,6 +16,7 @@ u8 i=0;
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
 	{	 
+		I2C_Init();
 		INT_interrupt();  /* initialize internally interrupt Timer0*/
 		ADC_init(); /* initialize ADC driver */
 		DDRD=0xFF;
@@ -53,7 +55,9 @@ u8 i=0;
 				
 					seven_segments();
 			ELEMENTS();
-					
+			I2C_Start(0xA0);
+			 I2C_Write (23);
+					I2C_Stop();
 					
 				}
 			

@@ -339,8 +339,8 @@ Disassembly of section .text:
  2e4:	c7 01       	movw	r24, r14
  2e6:	b6 01       	movw	r22, r12
  2e8:	0e 94 6b 02 	call	0x4d6	; 0x4d6 <__cmpsf2>
- 2ec:	87 ff       	sbrs	r24, 7
- 2ee:	02 c0       	rjmp	.+4      	; 0x2f4 <ACTIVATION+0x5e>
+ 2ec:	18 16       	cp	r1, r24
+ 2ee:	14 f0       	brlt	.+4      	; 0x2f4 <ACTIVATION+0x5e>
  2f0:	c5 98       	cbi	0x18, 5	; 24
  2f2:	c6 9a       	sbi	0x18, 6	; 24
  2f4:	cf 91       	pop	r28

@@ -17,7 +17,7 @@ main.d main.o: .././main.c .././Electric\ water\ heater.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  .././STD_TYPES.h .././MACROS.h .././ADC.c .././ADC.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././DIO.h .././interrupt.c
+ .././DIO.h .././interrupt.c .././I2C.h
 
 .././Electric\ water\ heater.c:
 
@@ -66,3 +66,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././DIO.h:
 
 .././interrupt.c:
+
+.././I2C.h:
