@@ -6,17 +6,17 @@
 #include "ADC.c"
 #include "DIO.h"
 #include "interrupt.c"
-#include "I2C.h"
+#include "I2C.c"
 volatile uint16 volt =0;
 volatile f32 x = 0;
- static f32  average ;
+ static f32  average;
   f32 sum;
 int16 counter = 0;
 u8 i=0;
+
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
-	{	 
-		I2C_Init();
+	{	 	
 		INT_interrupt();  /* initialize internally interrupt Timer0*/
 		ADC_init(); /* initialize ADC driver */
 		DDRD=0xFF;
@@ -55,9 +55,8 @@ u8 i=0;
 				
 					seven_segments();
 			ELEMENTS();
-			I2C_Start(0xA0);
-			 I2C_Write (23);
-					I2C_Stop();
+		
+				
 					
 				}
 			
@@ -101,9 +100,7 @@ void seven_segments(void)
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))
 		
 	 {
-		 
-		 
-			 	if(PINB&(1<<3))
+		 if(PINB&(1<<3))
 			 	{
 				 	counter++;
 			 	}
@@ -111,37 +108,43 @@ void seven_segments(void)
 			 	{
 				 	counter--;
 			 	}
-		 
-	
-
-		switch(counter)
+		 switch(counter)
 		{
 			case 1:
-			PORTD=0x65;
+			//PORTD=0x65;
+			PORTD=EEPROM(65);
 			break;
 			case -1:
 			PORTD=0x55;
+			EEPROM(55);
 			break;
 			case 2:
 			PORTD=0x70;
+			EEPROM(70);
 			break;
 			case -2:
 			PORTD=0x50;
+			EEPROM(50);
 			break;
 			case 3:
 			PORTD=0x75;
-            break;
+			EEPROM(75);
+			 break;
 			case -3:
 			PORTD=0x45;
+			EEPROM(45);
 			break;
 			case 0:
 			PORTD=0x60;
+			EEPROM(60);
 			break;
 			case -4:
 			PORTD=0x40;
+			EEPROM(40);
 			break;
 			case -5:
 			PORTD=0x35;
+			EEPROM(35);
 			break;
 		
 		
