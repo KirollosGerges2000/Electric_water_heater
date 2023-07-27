@@ -95,64 +95,57 @@ sum=sum+x;
 
 void seven_segments(void)
 {
-		
+	/*	if(NOT_INPUT_BIT(PINB,3) && READBIT_BIT(PINB,4) )
+		{
+			_delay_ms(3000);
+			PORTD=0XFF;
+		}*/
 		/*                                       */
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))
 		
 	 {
-		 if(PINB&(1<<3))
+		//counter=EEPROM_read();
+		 if(PINB&(1<<3)&&counter<3)
 			 	{
 				 	counter++;
 			 	}
-			 	else if(PINB&(1<<2))
+			 	else if(PINB&(1<<2)&&counter>-5)
 			 	{
 				 	counter--;
 			 	}
+		
 		 switch(counter)
 		{
 			case 1:
-			//PORTD=0x65;
-			PORTD=EEPROM(65);
+			PORTD=0x65;
 			break;
 			case -1:
 			PORTD=0x55;
-			EEPROM(55);
 			break;
 			case 2:
 			PORTD=0x70;
-			EEPROM(70);
 			break;
 			case -2:
 			PORTD=0x50;
-			EEPROM(50);
 			break;
 			case 3:
 			PORTD=0x75;
-			EEPROM(75);
 			 break;
 			case -3:
 			PORTD=0x45;
-			EEPROM(45);
 			break;
 			case 0:
-			PORTD=0x60;
-			EEPROM(60);
+		    PORTD=0x60;
 			break;
 			case -4:
 			PORTD=0x40;
-			EEPROM(40);
 			break;
 			case -5:
 			PORTD=0x35;
-			EEPROM(35);
 			break;
-		
-		
 		}
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2));
-		
-	
-		
+	EEPROM_write(counter);  //write on it
 	}	
 	
 		

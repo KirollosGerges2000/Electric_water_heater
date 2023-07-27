@@ -60,11 +60,12 @@
 	 uint8_t I2C_Write (u8 data)
 	 {
 		 /*copy data in TWI data register*/
-		 TWDR = decimal_to_bcd(data);
+		TWDR = decimal_to_bcd(data);
 		  /*Clear TWINT Flag ,Enable TWEN Bit */
 		 TWCR=(1<<TWEN)|(1<<TWINT);
 		 while(!(TWCR&(1<<TWINT))); // wait until TWI finish its job "Write operation"
 		 }
+		 
 		 /*I2C Stop function */
 		 void I2C_Stop()
 		 {  
@@ -82,9 +83,11 @@
 			 bcd=bcd>>4;
 			 bcd=bcd|0x30;
 			 /*the function out that message sent to it */
+			  
 			 bcd =value;
 			 bcd=bcd &0x0f;
 			 bcd=bcd|0x30;
+			//  PORTD= bcd;
 			  /*the function out that message sent to it */
 			 }
 			 /* converting from decimal  to Binary_coded_decimal*/
@@ -100,18 +103,22 @@
 			// turns a BCD-encoded byte back into a standard one
 			u8 Bcd_to_decimal ()
 			{
+			
 				return( ((TWDR>>4)*10)+(TWDR &0xF));
 			}
 			 
-			 u8 EEPROM(u8 stored_data)
+			 u8 EEPROM_write(u8 stored_data)
 			 {
-				  u8 data;
+				  
 				  I2C_Init();
 				  I2C_Start(0xA0);
 				  I2C_Write(stored_data);
-				 I2C_Repeated_Start(0xA1);
-				  data=Bcd_to_decimal(stored_data);
-				  I2C_Stop();
+			 I2C_Stop();
+			 return stored_data;
+				  
+	 }
+	 u8 EEPROM_read(void)
+	 {
+			 u8 data=EEPROM_write(Bcd_to_decimal ());
 				  return data;
-			 }
-		
+	 }
