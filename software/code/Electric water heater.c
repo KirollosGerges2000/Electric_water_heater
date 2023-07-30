@@ -13,6 +13,7 @@ volatile f32 x = 0;
   f32 sum;
 int16 counter = 0;
 u8 i=0;
+u8 flag=0;
 
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
@@ -44,17 +45,27 @@ u8 i=0;
 		while(1)  
 		{
 			
-				if(INPUT_BIT(PINB,1))
+				if(INPUT_BIT(PINB,1) && flag==0)
 				{ 
-					 //TOGGLe_BIT(PORTB,6);
-					 TOGGLe_BIT(PORTB,0);
+					  TOGGLe_BIT(PORTB,0);
 					 TOGGLe_BIT(PORTA,7);
-					// TOGGLe_BIT(PORTB,4);
-				
+				flag=1;
 					while(INPUT_BIT(PINB,1));
 					}
-					seven_segments();
+				else if(INPUT_BIT(PINB,1) && flag==1)
+				{
+					flag=0;
+					  TOGGLe_BIT(PORTB,0);
+					  TOGGLe_BIT(PORTA,7);
+					  	OUTPUT_MODULE_OFF(PORTB,4);
+					  	OUTPUT_MODULE_OFF(PORTB,5);
+					  	OUTPUT_MODULE_OFF(PORTB,6);
+				
+					  while(INPUT_BIT(PINB,1));
+				}
+						seven_segments();
 					ELEMENTS();
+				
 					
 		
 				
@@ -96,19 +107,15 @@ sum=sum+x;
 
 void seven_segments(void)
 {
-		 /* if(NOT_INPUT_BIT(PINB,3) || NOT_INPUT_BIT(PINB,2) )
-		{
-			_delay_ms(5000);
-			 TOGGLe_BIT(PORTB,0);
-			 TOGGLe_BIT(PORTA,7);
-	
-		}
-		                                     */
-		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))
+	 if(flag==1) 
+		
+		{	
+		                                  
+		while((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)) )
 		
 	 {
 		//counter=EEPROM_read();
-		 if(PINB&(1<<3)&&counter<3)
+		 if(PINB&(1<<3)&&counter<3 )
 			 	{
 				 	counter++;
 			 	}
@@ -152,13 +159,14 @@ void seven_segments(void)
 	}	
 	
 		
-	
+	 }
 }
 
 void ELEMENTS (void)
 {
-	
-	switch(counter)
+	if(flag==1)
+	{
+		switch(counter)
 	{
 		case 1:
 		ACTIVATION(0x65,70,60);
@@ -188,6 +196,8 @@ void ELEMENTS (void)
 		ACTIVATION(0x35,40,30);
 		break;
 	}
+	}
+	
 }
 		
 		void ACTIVATION(u8 value,u8 max, u8 min)
@@ -212,6 +222,3 @@ void ELEMENTS (void)
 		}
 	
 	}
-	
-				
-				

@@ -5,8 +5,9 @@
  * Author : Kirollos Gerges Asaad
  */ 
 #include "Electric water heater.c"
-int main(void)
+void main(void)
 {
    ELECTRIC_WATER_HEATER();
+ 
 }
 
