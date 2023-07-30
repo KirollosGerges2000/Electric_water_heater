@@ -107,18 +107,16 @@
 				return( ((TWDR>>4)*10)+(TWDR &0xF));
 			}
 			 
-			 u8 EEPROM_write(u8 stored_data)
+			 u8 EEPROM_write_read(u8 stored_data)
 			 {
-				  
+				  u8 data;
 				  I2C_Init();
 				  I2C_Start(0xA0);
 				  I2C_Write(stored_data);
+				  I2C_Repeated_Start(0xA1);
+				  data=I2C_Read_Nack ();
 			 I2C_Stop();
-			 return stored_data;
+			 return data;
 				  
 	 }
-	 u8 EEPROM_read(void)
-	 {
-			 u8 data=EEPROM_write(Bcd_to_decimal ());
-				  return data;
-	 }
+	

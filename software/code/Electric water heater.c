@@ -46,15 +46,16 @@ u8 i=0;
 			
 				if(INPUT_BIT(PINB,1))
 				{ 
-					 TOGGLe_BIT(PORTB,6);
+					 //TOGGLe_BIT(PORTB,6);
 					 TOGGLe_BIT(PORTB,0);
 					 TOGGLe_BIT(PORTA,7);
-					 TOGGLe_BIT(PORTB,4);
+					// TOGGLe_BIT(PORTB,4);
+				
 					while(INPUT_BIT(PINB,1));
 					}
-				
 					seven_segments();
-			ELEMENTS();
+					ELEMENTS();
+					
 		
 				
 					
@@ -95,12 +96,14 @@ sum=sum+x;
 
 void seven_segments(void)
 {
-	/*	if(NOT_INPUT_BIT(PINB,3) && READBIT_BIT(PINB,4) )
+		 /* if(NOT_INPUT_BIT(PINB,3) || NOT_INPUT_BIT(PINB,2) )
 		{
-			_delay_ms(3000);
-			PORTD=0XFF;
-		}*/
-		/*                                       */
+			_delay_ms(5000);
+			 TOGGLe_BIT(PORTB,0);
+			 TOGGLe_BIT(PORTA,7);
+	
+		}
+		                                     */
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))
 		
 	 {
@@ -145,7 +148,7 @@ void seven_segments(void)
 			break;
 		}
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2));
-	EEPROM_write(counter);  //write on it
+	EEPROM_write_read(counter);  
 	}	
 	
 		
@@ -195,11 +198,16 @@ void ELEMENTS (void)
 				{
 					OUTPUT_MODULE_ON(PORTB,5);  //cooling element activate
 					OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+						OUTPUT_MODULE_ON(PORTB,4); //LED
 				}
 				else if(average<=min)
 				{
 					OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
 					OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
+					TOGGLe_BIT(PORTB,4);
+						_delay_ms(1000);
+					
+					
 				}
 		}
 	
