@@ -1,12 +1,12 @@
 #include <avr/io.h>
 #include <stdlib.h>
-#include <util/delay.h>
 #include "STD_TYPES.h"
 #include "MACROS.h" 
 #include "ADC.c"
 #include "DIO.h"
 #include "interrupt.c"
 #include "I2C.c"
+#include "delay.h"
 volatile uint16 volt =0;
 volatile f32 x = 0;
  static f32  average;
@@ -14,6 +14,7 @@ volatile f32 x = 0;
 int16 counter = 0;
 u8 i=0;
 u8 flag=0;
+uint16 counter_for_Timer=0;
 
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
@@ -48,19 +49,25 @@ u8 flag=0;
 			 on_off_mode();
 			 while(flag==1)
 			 {
-				 current_water_temperature();
+			current_water_temperature();
+					   ELEMENTS();
+					  on_off_mode();
+					if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
+			 {
+				 setting_temp();
 					ELEMENTS();
-			setting_temp();
-			 on_off_mode();
-					 }
-				
-					
-				}
+					on_off_mode();	
+			 }
+						
 			
 				
-
-
+		}
+		}
+			
+				
 	}
+
+	
 
 		
 	
@@ -94,17 +101,20 @@ void setting_temp(void)
 {
 	 
 		                                  
-		if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
+	//	if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
 		
 	 {
+		 
 		//counter=EEPROM_read();
 		 if(PINB&(1<<3)&&counter<3 )
 			 	{
 				 	counter++;
+					 counter_for_Timer=0;
 			 	}
 			 	else if(PINB&(1<<2)&&counter>-5)
 			 	{
 				 	counter--;
+					  counter_for_Timer=0;
 			 	}
 		
 		 switch(counter)
@@ -137,9 +147,11 @@ void setting_temp(void)
 			PORTD=0x35;
 			break;
 		}
+		
+
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2));
 	EEPROM_write_read(counter);   // store value of counter.
-	_delay_ms(400);
+	
 	}	
 	
 }
@@ -239,3 +251,6 @@ void ELEMENTS (void)
 		 
 		
 	}
+	
+
+	
