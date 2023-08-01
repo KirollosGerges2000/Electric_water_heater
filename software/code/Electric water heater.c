@@ -18,7 +18,7 @@ u8 flag=0;
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
 	{	 	
-		INT_interrupt();  /* initialize internally interrupt Timer0*/
+		INT_interrupt();  /* initialize internally interrupt Timer1*/
 		ADC_init(); /* initialize ADC driver */
 		DDRD=0xFF;
 		OUTPUT_MODULE(DDRB,0); //set Enable of first 7 segment as output
@@ -45,29 +45,14 @@ u8 flag=0;
 		while(1)  
 		{
 			
-				if(INPUT_BIT(PINB,1) && flag==0)
-				{ 
-					  TOGGLe_BIT(PORTB,0);
-					 TOGGLe_BIT(PORTA,7);
-				flag=1;
-					while(INPUT_BIT(PINB,1));
-					}
-				else if(INPUT_BIT(PINB,1) && flag==1)
-				{
-					flag=0;
-					  TOGGLe_BIT(PORTB,0);
-					  TOGGLe_BIT(PORTA,7);
-					  	OUTPUT_MODULE_OFF(PORTB,4);
-					  	OUTPUT_MODULE_OFF(PORTB,5);
-					  	OUTPUT_MODULE_OFF(PORTB,6);
-				
-					  while(INPUT_BIT(PINB,1));
-				}
-						seven_segments();
+			 on_off_mode();
+			 while(flag==1)
+			 {
+				 current_water_temperature();
 					ELEMENTS();
-				
-					
-		
+			setting_temp();
+			 on_off_mode();
+					 }
 				
 					
 				}
@@ -105,13 +90,11 @@ sum=sum+x;
 
 
 
-void seven_segments(void)
+void setting_temp(void)
 {
-	 if(flag==1) 
-		
-		{	
+	 
 		                                  
-		while((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)) )
+		if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
 		
 	 {
 		//counter=EEPROM_read();
@@ -155,54 +138,53 @@ void seven_segments(void)
 			break;
 		}
 		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2));
-	EEPROM_write_read(counter);  
+	EEPROM_write_read(counter);   // store value of counter.
+	_delay_ms(400);
 	}	
 	
-		
-	 }
 }
 
 void ELEMENTS (void)
 {
-	if(flag==1)
+
 	{
 		switch(counter)
 	{
 		case 1:
-		ACTIVATION(0x65,70,60);
+		ACTIVATION(1,70,60);
 		break;
 		case -1:
-		ACTIVATION(0x55,60,50);
+		ACTIVATION(-1,60,50);
 		break;
 		case 2:
-		ACTIVATION(0x70,75,65);
+		ACTIVATION(2,75,65);
 		break;
 		case -2:
-		ACTIVATION(0x50,55,45);
+		ACTIVATION(-2,55,45);
 		break;
 		case 3:
-		ACTIVATION(0x75,80,70);
+		ACTIVATION(3,80,70);
 		break;
 		case -3:
-		ACTIVATION(0x45,50,40);
+		ACTIVATION(-3,50,40);
 		break;
 		case 0:
-		ACTIVATION(0x60,65,55);
+		ACTIVATION(0,65,55);
 		break;
 		case -4:
-		ACTIVATION(0x40,45,35);
+		ACTIVATION(-4,45,35);
 		break;
 		case -5:
-		ACTIVATION(0x35,40,30);
+		ACTIVATION(-5,40,30);
 		break;
 	}
 	}
 	
 }
 		
-		void ACTIVATION(u8 value,u8 max, u8 min)
+		void ACTIVATION(uint16 value,u8 max, u8 min)
 		{
-			if(PORTD == value)
+			if(counter == value)
 			{
 				if(average>=max)
 				{
@@ -215,10 +197,45 @@ void ELEMENTS (void)
 					OUTPUT_MODULE_OFF(PORTB,5);  //cooling element disactivate
 					OUTPUT_MODULE_ON(PORTB,6);  //Heating element activate
 					TOGGLe_BIT(PORTB,4);
-						_delay_ms(1000);
+						_delay_ms(700);
 					
 					
 				}
 		}
 	
+	}
+	
+	void on_off_mode(void)
+	{
+		
+		if(INPUT_BIT(PINB,1) && flag==0)
+		{
+			TOGGLe_BIT(PORTB,0);
+			TOGGLe_BIT(PORTA,7);
+			flag=1;
+			while(INPUT_BIT(PINB,1));
+		}
+		else if(INPUT_BIT(PINB,1) && flag==1)
+		{
+			flag=0;
+			TOGGLe_BIT(PORTB,0);
+			TOGGLe_BIT(PORTA,7);
+			OUTPUT_MODULE_OFF(PORTB,4);
+			OUTPUT_MODULE_OFF(PORTB,5);
+			OUTPUT_MODULE_OFF(PORTB,6);
+			
+			while(INPUT_BIT(PINB,1));
+		}
+	}
+	
+	
+	void current_water_temperature(void)
+	{
+		
+		 
+			  OUTPUT_MODULE_OFF(PORTB,0);
+		OUTPUT_MODULE_OFF(PORTA,7);
+		PORTD=decimal_to_bcd(x);
+		 
+		
 	}
