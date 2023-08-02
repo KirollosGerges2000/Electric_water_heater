@@ -14,7 +14,7 @@ volatile f32 x = 0;
 int16 counter = 0;
 u8 i=0;
 u8 flag=0;
-uint16 counter_for_Timer=0;
+s64 counter_for_Timer=0;
 
 	 /*the main process*/
  void  ELECTRIC_WATER_HEATER(void)
@@ -49,15 +49,29 @@ uint16 counter_for_Timer=0;
 			 on_off_mode();
 			 while(flag==1)
 			 {
+			
 			current_water_temperature();
 					   ELEMENTS();
 					  on_off_mode();
-					if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
-			 {
-				 setting_temp();
-					ELEMENTS();
-					on_off_mode();	
-			 }
+					  if(((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))))
+					  {
+						  counter_for_Timer=0;
+						  		while( counter_for_Timer<1000) //In testing and validation ,calibration
+						  		{	on_off_7_segment(1);
+							  		setting_temp();
+							  		ELEMENTS();
+							  		on_off_mode();
+									  	counter_for_Timer++;
+									  on_off_7_segment(0);
+									  setting_temp();
+									  ELEMENTS();
+									  on_off_mode();
+							  		counter_for_Timer++;
+										
+								  }
+								
+					  }
+			
 						
 			
 				
@@ -87,7 +101,7 @@ sum=sum+x;
 	i++;
 	if(i==9)
 	{
-		 average=(sum)/10;
+		 average=(sum)/9.1125;  //In testing and validation ,calibration
 		i=0;
 		sum=0;
 	}
@@ -98,14 +112,9 @@ sum=sum+x;
 
 
 void setting_temp(void)
+
 {
-	 
-		                                  
-	//	if((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2)))
-		
-	 {
-		 
-		//counter=EEPROM_read();
+	//counter=EEPROM_read();
 		 if(PINB&(1<<3)&&counter<3 )
 			 	{
 				 	counter++;
@@ -148,13 +157,11 @@ void setting_temp(void)
 			break;
 		}
 		
-
-		while(INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2));
-	EEPROM_write_read(counter);   // store value of counter.
+		EEPROM_write_read(counter);   // store value of counter.
 	
 	}	
 	
-}
+
 
 void ELEMENTS (void)
 {
@@ -243,12 +250,23 @@ void ELEMENTS (void)
 	
 	void current_water_temperature(void)
 	{
-		
-		 
-			  OUTPUT_MODULE_OFF(PORTB,0);
-		OUTPUT_MODULE_OFF(PORTA,7);
+		on_off_7_segment(1);
 		PORTD=decimal_to_bcd(x);
 		 
+		
+	}
+	void on_off_7_segment(u8 Mode)
+	{
+		if(Mode==1)
+		{
+			  OUTPUT_MODULE_OFF(PORTB,0);
+			  OUTPUT_MODULE_OFF(PORTA,7);
+		}
+		else if(Mode==0)
+		{
+	  OUTPUT_MODULE_ON(PORTB,0);
+	  OUTPUT_MODULE_ON(PORTA,7);
+		}
 		
 	}
 	
