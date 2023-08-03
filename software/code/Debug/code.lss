@@ -370,9 +370,9 @@ sum=sum+x;
  28a:	29 30       	cpi	r18, 0x09	; 9
  28c:	c1 f4       	brne	.+48     	; 0x2be <Avg_reading+0x72>
 	{
-		 average=(sum)/9.1125;  //In testing and validation ,calibration
- 28e:	2d ec       	ldi	r18, 0xCD	; 205
- 290:	3c ec       	ldi	r19, 0xCC	; 204
+		 average=(sum)/9.105;  //In testing and validation ,calibration 9.1125
+ 28e:	24 e1       	ldi	r18, 0x14	; 20
+ 290:	3e ea       	ldi	r19, 0xAE	; 174
  292:	41 e1       	ldi	r20, 0x11	; 17
  294:	51 e4       	ldi	r21, 0x41	; 65
  296:	0e 94 65 04 	call	0x8ca	; 0x8ca <__divsf3>

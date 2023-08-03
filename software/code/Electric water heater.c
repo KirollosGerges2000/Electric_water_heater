@@ -74,7 +74,7 @@ sum=sum+x;
 	i++;
 	if(i==9)
 	{
-		 average=(sum)/9.1125;  //In testing and validation ,calibration
+		 average=(sum)/9.105;  //In testing and validation ,calibration 9.1125
 		i=0;
 		sum=0;
 	}
