@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include "STD_TYPES.h"
 #include "MACROS.h" 
-#include "ADC.c"
+#include "ADC.c"   // in testing 
 #include "DIO.h"
-#include "interrupt.c"
-#include "I2C.c"
-#include "delay.h"
+#include "interrupt.c"    // in testing 
+#include "I2C.h"
 volatile uint16 volt =0;
 volatile f32 x = 0;
  static f32  average;
@@ -47,38 +46,12 @@ s64 counter_for_Timer=0;
 		{
 			
 			 on_off_mode();
-			 while(flag==1)
-			 {
-			
-			current_water_temperature();
-					   ELEMENTS();
-					  on_off_mode();
-					  if(((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))))
-					  {
-						  counter_for_Timer=0;
-						  		while( counter_for_Timer<1000) //In testing and validation ,calibration
-						  		{	on_off_7_segment(1);
-							  		setting_temp();
-							  		ELEMENTS();
-							  		on_off_mode();
-									  	counter_for_Timer++;
-									  on_off_7_segment(0);
-									  setting_temp();
-									  ELEMENTS();
-									  on_off_mode();
-							  		counter_for_Timer++;
-										
-								  }
-								
-					  }
+		ON_MODE_Process();
 			
 						
 			
 				
 		}
-		}
-			
-				
 	}
 
 	
@@ -229,21 +202,19 @@ void ELEMENTS (void)
 		
 		if(INPUT_BIT(PINB,1) && flag==0)
 		{
-			TOGGLe_BIT(PORTB,0);
-			TOGGLe_BIT(PORTA,7);
+			
+			ON_MODE:
 			flag=1;
 			while(INPUT_BIT(PINB,1));
-		}
+			}
 		else if(INPUT_BIT(PINB,1) && flag==1)
 		{
-			flag=0;
-			TOGGLe_BIT(PORTB,0);
-			TOGGLe_BIT(PORTA,7);
-			OUTPUT_MODULE_OFF(PORTB,4);
-			OUTPUT_MODULE_OFF(PORTB,5);
-			OUTPUT_MODULE_OFF(PORTB,6);
-			
 			while(INPUT_BIT(PINB,1));
+			OFF_MODE:
+			flag=0;
+			OFF_MODE();
+			
+		
 		}
 	}
 	
@@ -270,5 +241,45 @@ void ELEMENTS (void)
 		
 	}
 	
+void ON_MODE_Process (void)
+{
+	 while(flag==1)
+	 {
+		 
+		 current_water_temperature();
+		 ELEMENTS();
+		on_off_mode();
+		 if(((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))))
+		 {
+			
+			 while( counter_for_Timer<10 &&flag==1 ) //In testing and validation ,calibration
+			 {
+				 on_off_7_segment(1);
+				 setting_temp();
+				 ELEMENTS();
+				 on_off_mode();
+				 counter_for_Timer++;
+				 on_off_7_segment(0);
+				 setting_temp();
+				 ELEMENTS();
+				 on_off_mode();
+				 counter_for_Timer++;
+				 
+				 
+				 
+			 }
+			  counter_for_Timer=0;
+		 }
+	 }
+}
 
+
+void OFF_MODE(void)
+{
+
+	OUTPUT_MODULE_OFF(PORTB,5);  //cooling element activate
+	OUTPUT_MODULE_OFF(PORTB,6);  //Heating element disactivate
+	OUTPUT_MODULE_OFF(PORTB,4); //LED
+	on_off_7_segment(0);
 	
+}

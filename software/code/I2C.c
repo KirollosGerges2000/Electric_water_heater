@@ -4,7 +4,7 @@
  * Created: 7/24/2023 1:24:50 PM
  * Author : Kirollos Gerges Asaad
  */ 
-#include "I2C.h"
+
 /*I2C initialization function*/
  void I2C_Init()   
  {

@@ -17,7 +17,7 @@ main.d main.o: .././main.c .././Electric\ water\ heater.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././DIO.h .././interrupt.c .././I2C.c .././I2C.h .././delay.h
+ .././DIO.h .././interrupt.c .././I2C.h
 
 .././Electric\ water\ heater.c:
 
@@ -67,8 +67,4 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 .././interrupt.c:
 
-.././I2C.c:
-
 .././I2C.h:
-
-.././delay.h:
