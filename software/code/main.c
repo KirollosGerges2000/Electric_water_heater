@@ -1,13 +1,22 @@
-/*
- * code.c
- *
- * Created: 7/11/2023 2:50:50 PM
- * Author : Kirollos Gerges Asaad
- */ 
-#include "Electric water heater.c"
-void main(void)
-{
-   ELECTRIC_WATER_HEATER();
- 
-}
+#include "Electric water heater Libraries .h"
+#include "Global variables.h"
+#include "Data Direction registers.h"
+#include "Initialization variables.h"
+#include "Prototypes.h"
+GLOBAL_VARIABLES_H;
+PROTOTYPES_H;
+	 /*the main process*/
+ int  main (void)
+	{	 	
+	DATA_DIRECTION_REGISTERS_H;
+INITIALIZATION_VARIABLES_H;
+		//super loop for repeating this process infinitely
+		while(1)  
+		{
+			 on_off_mode();
+		ON_MODE_Process();
+			
+		}
+		return 0;
+	}
 

@@ -87,9 +87,9 @@ static __inline__ void _delay_us(double __us) __attribute__((__always_inline__))
 static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
 #endif
 
-#ifndef F_CPU
+
 /* prevent compiler error by supplying a default */
-# warning "F_CPU not defined for <util/delay.h>"
+// warning "F_CPU not defined for <util/delay.h>"
 /** \ingroup util_delay
     \def F_CPU
     \brief CPU frequency in Hz
@@ -106,7 +106,7 @@ static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__))
     integer value.
  */
 # define F_CPU 1000000UL
-#endif
+
 
 #ifndef __OPTIMIZE__
 # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
@@ -254,9 +254,7 @@ _delay_ms(double __ms)
 void
 _delay_us(double __us)
 {
-	if(NOT_INPUT_BIT(PINB,3) || NOT_INPUT_BIT(PINB,2))
-	{
-			double __tmp ;
+	double __tmp ;
 #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
   __STDC_HOSTED__
@@ -299,8 +297,6 @@ _delay_us(double __us)
 	_delay_loop_1(__ticks);
 #endif
 }
-	}
-
 
 
 #endif /* _UTIL_DELAY_H_ */

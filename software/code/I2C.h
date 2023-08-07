@@ -4,9 +4,10 @@
  * Created: 7/24/2023 3:22:50 PM
  * Author : Kirollos Gerges Asaad
  */ 
-#ifndef I2C.h
-#define I2C.h
- /*I2C Prototypes*/
+#ifndef I2C_H
+
+#define I2C_H
+/*I2C Prototypes*/
  void I2C_Init();
   uint8_t I2C_Start(char Write_address);
   uint8_t I2C_Repeated_Start(char read_address);
@@ -42,6 +43,7 @@
 		TWCR = (1<<TWINT)|(1<<TWEN); // Enable TWI , disable interrupt flag.
 		/*wait until TWI finish its job*/
 		while(!(TWCR & (1<<TWINT)));
+		return 0;
 	}
 	
 	uint8_t I2C_Repeated_Start(char read_address)
@@ -54,6 +56,7 @@
 		TWCR = (1<<TWINT)|(1<<TWEN); // Enable TWI , disable interrupt flag.
 		/*wait until TWI finish its job*/
 		while(!(TWCR & (1<<TWINT)));
+		return 0;
 	}
 	
 	/*I2c read Acknowledgment function */
@@ -82,6 +85,7 @@
 		/*Clear TWINT Flag ,Enable TWEN Bit */
 		TWCR=(1<<TWEN)|(1<<TWINT);
 		while(!(TWCR&(1<<TWINT))); // wait until TWI finish its job "Write operation"
+	return 0;
 	}
 	
 	/*I2C Stop function */
@@ -137,3 +141,4 @@
 		return data;
 		
 	}
+	
