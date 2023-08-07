@@ -14,8 +14,11 @@ INITIALIZATION_VARIABLES_H;
 		while(1)  
 		{
 			 on_off_mode();
-		ON_MODE_Process();
-			
+			 if(Start_Mode)
+			 {
+				 ON_MODE_Process();
+			}
+		
 		}
 		return 0;
 	}

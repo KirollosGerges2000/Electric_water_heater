@@ -19,7 +19,7 @@ main.d main.o: .././main.c .././Electric\ water\ heater\ Libraries\ .h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  .././DIO.h .././interrupt.h .././I2C.h .././Global\ variables.h \
  .././Data\ Direction\ registers.h .././Initialization\ variables.h \
- .././Prototypes.h
+ .././Prototypes.h .././Functions.h
 
 .././Electric\ water\ heater\ Libraries\ .h:
 
@@ -76,3 +76,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././Initialization\ variables.h:
 
 .././Prototypes.h:
+
+.././Functions.h:
