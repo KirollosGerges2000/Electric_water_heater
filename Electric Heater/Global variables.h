@@ -1,3 +1,4 @@
+#include "STD_TYPES.h"
 #ifndef GLOBAL_VARIABLES_H
 #define GLOBAL_VARIABLES_H
 	volatile uint16 volt =0;
