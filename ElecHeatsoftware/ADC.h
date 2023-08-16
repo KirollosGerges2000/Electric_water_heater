@@ -34,7 +34,7 @@ void ADC_init(void);
  * Function responsible for read analog data from a certain ADC channel
  * and convert it to digital using the ADC driver.
  */
-//unsigned short ADC_readChannel(unsigned char channel_num);
+unsigned short ADC_readChannel(unsigned char channel_num);
 
 #endif /* ADC_H_ */
 

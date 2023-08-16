@@ -39,7 +39,6 @@ SUBDIRS :=
 C_SRCS +=  \
 ../ADC.c \
 ../I2C.c \
-../initialization\ variables.c \
 ../interrupt.c \
 ../main.c
 
@@ -53,28 +52,24 @@ ASM_SRCS +=
 OBJS +=  \
 ADC.o \
 I2C.o \
-initialization\ variables.o \
 interrupt.o \
 main.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
 I2C.o \
-"initialization variables.o" \
 interrupt.o \
 main.o
 
 C_DEPS +=  \
 ADC.d \
 I2C.d \
-initialization\ variables.d \
 interrupt.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
 I2C.d \
-"initialization variables.d" \
 interrupt.d \
 main.d
 
@@ -100,13 +95,6 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./I2C.o: .././I2C.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega16 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega16" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-./initialization\ variables.o: .././initialization\ variables.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega16 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega16" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

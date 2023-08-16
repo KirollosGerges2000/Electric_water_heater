@@ -1,6 +1,6 @@
-u8 EEPROM_write_read(u8 stored_data);
+/*u8 EEPROM_write_read(u8 stored_data);
 char decimal_to_bcd(u8 val);
-#ifndef FUNCTIONS_H
+
 #define FUNCTIONS_H
 
 void Temperature_reading(void)
@@ -232,5 +232,4 @@ void OFF_MODE(void)
 	on_off_7_segment(0);
 	
 }
-
-#endif
+*/

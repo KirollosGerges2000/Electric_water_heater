@@ -6,8 +6,6 @@ ADC.c
 
 I2C.c
 
-initialization variables.c
-
 interrupt.c
 
 main.c
