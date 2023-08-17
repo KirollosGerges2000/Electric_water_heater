@@ -145,9 +145,6 @@
     <Compile Include="DIO.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Functions.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="I2C.c">
       <SubType>compile</SubType>
     </Compile>

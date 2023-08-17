@@ -3,7 +3,6 @@
 //#ifndef INITIALIZATION_VARIABLES_H 
 #define INITIALIZATION_VARIABLES_H 
 
-#define Start_Mode 0  //start up the device
 
  //deceleration, initialize 7_segments by 60
 #define PORTD7 OUTPUT_MODULE_OFF(PORTD,7);
@@ -29,6 +28,8 @@
 
 void Init_VARIABLES(void)
 { 
+	
+	
 	 //deceleration, initialize 7_segments by 60
 PORTD7
 PORTD6

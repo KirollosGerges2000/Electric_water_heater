@@ -18,7 +18,7 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  .././DIO.h .././Data\ Direction\ registers.h .././MACROS.h \
  .././STD_TYPES.h .././Initialization\ variables.h .././Prototypes.h \
- .././I2C.h .././functions.h .././ADC.h \
+ .././I2C.h .././ADC.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  .././interrupt.h
 
@@ -69,8 +69,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 .././Prototypes.h:
 
 .././I2C.h:
-
-.././functions.h:
 
 .././ADC.h:
 

@@ -4,7 +4,7 @@
  * Created: 8/15/2023 12:24:31 PM
  *  Author: Kirollos
  */ 
-#include "functions.h"
+
 
 #ifndef I2C_H_
 #define  I2C_H_

@@ -8,6 +8,7 @@
 #ifndef DATA_DIRECTION_REGISTER_H
 #define DATA_DIRECTION_REGISTER_H
 
+
 //	OUTPUTS
 #define  PORTD0_OUT  OUTPUT_MODULE(DDRD,0) //set data that write on 7 segment as output "Pin0"
 #define  PORTD1_OUT  OUTPUT_MODULE(DDRD,1) //set data that write on 7 segment as output "Pin1"
@@ -34,6 +35,7 @@
 #endif
 
  void DATA_DIRECTION_REGISTER(void)
+
 {
 	//	OUTPUTS
 	PORTD0_OUT
@@ -43,7 +45,7 @@
 	PORTD4_OUT
 	PORTD5_OUT
 	PORTD6_OUT
-	PORTD7_OUT
+	PORTD7_OUT         
 	
 	
 	 PORTB0_OUT
