@@ -19,28 +19,36 @@
 #include "ADC.h" //  Analog_Digital_converter Driver library to read the temperature from sensor.
 #include "interrupt.h" //Internal Timer1 interrupt Driver Library for reading temperature each 100 ms during running of program.
 
+/*
+The main() function is the first function in your program that is executed when it begins executing, but it's not the first function
+ executed. The first function is _start(), which is typically provided by the C runtime library, linked in automatically 
+ when your program is compiled.
 
-
-
-
-/* the main function that executes in this project*/
+the main function that executes in this project*/
 int main(void)
 {
-	DATA_DIRECTION_REGISTER('O','I'); //Determine 
-INT_interrupt();
-ADC_init();
-Init_VARIABLES();
-    /* Replace with your application code */
+	DATA_DIRECTION_REGISTER('O','I'); //Activate all input/Outputs sensors,actuators Pins 
+INT_interrupt(); //Initialize the internal Timer 1 Driver
+ADC_init(); //Initialize the Analog/Digital converter Driver
+Init_VARIABLES(); //Initialize All variables that used in this project by required values.
+    /* super loop for repeating process infinitely number of cycles */
     while (1) 
     {
-		on_off_mode();
-		if(flag==1)
+		on_off_mode();  // wait until user switch on the Heater.
+		if(flag==1) 
+		/*When Flag is set that mean that Heater is activate
+		; so that It will execute this scope*/
 		{
-			ON_MODE_Process ();
+			/*The main Process will execute that covered all requirements of project
+			with asking user if the Heater is set/Reset for each cycle Until the Flag 
+			reset terminates this scope. */
+			ON_MODE_Process (); 
+			/*Monitoring On/OFF mode the change the state of flag according to On/OFF switch*/
 			on_off_mode();
 		}
 		
 }
+/*Return 0 to terminates Function */
 return 0;
 }
 

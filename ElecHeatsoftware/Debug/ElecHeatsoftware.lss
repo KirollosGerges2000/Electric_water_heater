@@ -1095,9 +1095,9 @@ ISR (TIMER1_OVF_vect)    // Timer1 ISR
 00000850 <INT_interrupt>:
 
 
-
 void INT_interrupt (void)
 {
+	
 	TCNT1 = 65380;   // for 100 ms at 16 MHz  in Bin "1111 1111 0110 0100" , in Hexa_decimal "FF64" 
      850:	84 e6       	ldi	r24, 0x64	; 100
      852:	9f ef       	ldi	r25, 0xFF	; 255
@@ -1116,33 +1116,38 @@ void INT_interrupt (void)
      864:	08 95       	ret
 
 00000866 <main>:
+ when your program is compiled.
 
-
-/* the main function that executes in this project*/
+the main function that executes in this project*/
 int main(void)
 {
-	DATA_DIRECTION_REGISTER('O','I'); //Determine 
+	DATA_DIRECTION_REGISTER('O','I'); //Activate all input/Outputs sensors,actuators Pins 
      866:	69 e4       	ldi	r22, 0x49	; 73
      868:	8f e4       	ldi	r24, 0x4F	; 79
      86a:	0e 94 a6 00 	call	0x14c	; 0x14c <DATA_DIRECTION_REGISTER>
-INT_interrupt();
+INT_interrupt(); //Initialize the internal Timer 1 Driver
      86e:	0e 94 28 04 	call	0x850	; 0x850 <INT_interrupt>
-ADC_init();
+ADC_init(); //Initialize the Analog/Digital converter Driver
      872:	0e 94 91 00 	call	0x122	; 0x122 <ADC_init>
-Init_VARIABLES();
+Init_VARIABLES(); //Initialize All variables that used in this project by required values.
      876:	0e 94 dc 00 	call	0x1b8	; 0x1b8 <Init_VARIABLES>
-    /* Replace with your application code */
+    /* super loop for repeating process infinitely number of cycles */
     while (1) 
     {
-		on_off_mode();
+		on_off_mode();  // wait until user switch on the Heater.
      87a:	0e 94 4a 02 	call	0x494	; 0x494 <on_off_mode>
-		if(flag==1)
+		if(flag==1) 
      87e:	80 91 69 00 	lds	r24, 0x0069	; 0x800069 <flag>
      882:	81 30       	cpi	r24, 0x01	; 1
      884:	d1 f7       	brne	.-12     	; 0x87a <main+0x14>
+		; so that It will execute this scope*/
 		{
-			ON_MODE_Process ();
+			/*The main Process will execute that covered all requirements of project
+			with asking user if the Heater is set/Reset for each cycle Until the Flag 
+			reset terminates this scope. */
+			ON_MODE_Process (); 
      886:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <ON_MODE_Process>
+			/*Monitoring On/OFF mode the change the state of flag according to On/OFF switch*/
 			on_off_mode();
      88a:	0e 94 4a 02 	call	0x494	; 0x494 <on_off_mode>
      88e:	f5 cf       	rjmp	.-22     	; 0x87a <main+0x14>

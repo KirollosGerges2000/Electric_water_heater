@@ -1,28 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffffac000000260000000c050000e2020000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffffac000000260000000c050000e2020000</PLACEMENT>
   <WINDOW type="default" module="ISIS">
-   <editor metric="0" gridmajor="2540000" mode="00000000" zoom="0" scale="84" flipped="0" gridminor="254000" gridmode="16" snapidx="2" snap="254000" xcursor="32" orgmode="0" snaprange="151190">
+   <editor metric="0" gridmajor="2540000" mode="00000000" zoom="-1" scale="252" flipped="0" gridminor="1270000" gridmode="32" snapidx="3" snap="1270000" xcursor="16" orgmode="1" snaprange="635000">
     <world y1="-8890000" x1="-12700000" y2="8890000" x2="12700000"/>
-    <centre x="0" y="0"/>
-    <origin x="0" y="0"/>
+    <centre x="6985000" y="2540000"/>
+    <origin x="9525000" y="0"/>
    </editor>
   </WINDOW>
-  <WINDOW type="default" module="PROJNOTES"/>
  </FRAME>
  <MODULE name="ARES">
-  <editor metric="1" gridmajor="10000000" mode="00000000" zoom="-1" scale="54" flipped="0" gridminor="500000" gridmode="32" snapidx="3" snap="250000" xcursor="0" orgmode="0" snaprange="235185">
+  <editor metric="1" gridmajor="0" mode="00000000" zoom="10" scale="10" flipped="0" gridminor="0" gridmode="32" snapidx="3" snap="0" xcursor="0" orgmode="0" snaprange="0">
    <world y1="-12700000" x1="-15240000" y2="12700000" x2="15240000"/>
-   <centre x="-4500000" y="1015679"/>
+   <centre x="0" y="0"/>
    <origin x="0" y="0"/>
   </editor>
  </MODULE>
  <MODULE name="ISIS">
-  <editor metric="0" gridmajor="2540000" mode="00000000" zoom="0" scale="84" flipped="0" gridminor="254000" gridmode="16" snapidx="2" snap="254000" xcursor="32" orgmode="0" snaprange="151190">
+  <editor metric="0" gridmajor="2540000" mode="00000000" zoom="-1" scale="252" flipped="0" gridminor="1270000" gridmode="32" snapidx="3" snap="1270000" xcursor="16" orgmode="1" snaprange="635000">
    <world y1="-8890000" x1="-12700000" y2="8890000" x2="12700000"/>
-   <centre x="0" y="0"/>
-   <origin x="0" y="0"/>
+   <centre x="6985000" y="2540000"/>
+   <origin x="9525000" y="0"/>
   </editor>
  </MODULE>
  <MODULE name="VSMDEBUG">
@@ -52,7 +51,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="153" flags="00000023" y="80" h="326" pid="0" iid="22">
+   <POPUP w="450" x="76" flags="00008023" y="154" h="250" pid="0" iid="22">
     <PROPERTIES>
      <ITEM name="ComboBox1000">S</ITEM>
      <ITEM name="ComboBox1001">Sr</ITEM>
@@ -65,7 +64,7 @@
      <ITEM name="ComboBox1008">A</ITEM>
      <ITEM name="ComboBox1009">N</ITEM>
      <ITEM name="HSplitter1Pos">100</ITEM>
-     <ITEM name="VSplitter1Pos">6</ITEM>
+     <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="8" x="128" flags="0000000a" y="189" h="32" pid="101" iid="21">
@@ -141,10 +140,10 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="288" flags="0000000a" y="338" h="400" pid="1" iid="1">
+   <POPUP w="600" x="288" flags="0000000b" y="338" h="400" pid="1" iid="1">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="430" x="804" flags="0000000a" y="7" h="731" pid="2" iid="1">
+   <POPUP w="300" x="308" flags="0000000b" y="369" h="300" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">94</ITEM>
      <ITEM name="AutoResize">No</ITEM>

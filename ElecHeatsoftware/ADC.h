@@ -1,9 +1,14 @@
+/*ADC.h
+Header File
+Author:Kirollos Gerges */
+
 #ifndef ADC_H_
 #define ADC_H_
 
 
 #include <avr/interrupt.h>
 
+/*Set a certain bit in any register */
 #define SET_BIT(REG,BIT_N) REG|=(1<<BIT_N)
 
 /* Clear a certain bit in any register */
