@@ -2,7 +2,7 @@
  * Data Direction registers.h
  *
  * Created: 8/14/2023 6:15:30 PM
- * Author : Kirollos
+ * Author: Kirollos
  */
 
 #ifndef DATA_DIRECTION_REGISTER_H
@@ -34,10 +34,13 @@
 
 #endif
 
- void DATA_DIRECTION_REGISTER(void)
+ void DATA_DIRECTION_REGISTER(char SET_OUT,char SET_IN)
 
 {
-	//	OUTPUTS
+
+	if(SET_OUT=='O')
+	{
+		//	OUTPUTS
 	PORTD0_OUT
 	PORTD1_OUT
 	PORTD2_OUT
@@ -53,13 +56,19 @@
 	 PORTB5_OUT  //set cooling fan as output
 	 PORTB6_OUT  //set Heater as output
      PORTB4_OUT
-	 
-	 
-	 //INPUTS
+	}
+	else if(SET_IN=='I')
+	{
+		 //INPUTS
 	 PORTB3_IN  //set increment temperature button to be input
 	 PORTB2_IN  //set decrement temperature button to be input
-	 PORTB1_IN  //ON,OFF
-	 
+	 PORTB1_IN  //ON,OFF 
+	}
+	else
+	{
+		
+		
+	}
 	 
 }
 
