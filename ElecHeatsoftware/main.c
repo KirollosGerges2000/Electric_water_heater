@@ -30,7 +30,7 @@ int main(void)
 	DATA_DIRECTION_REGISTER('O','I'); //Activate all input/Outputs sensors,actuators Pins 
 INT_interrupt(); //Initialize the internal Timer 1 Driver
 ADC_init(); //Initialize the Analog/Digital converter Driver
-Init_VARIABLES(); //Initialize All variables that used in this project by required values.
+Init_VARIABLES('S','S','I','R','R','R'); //Initialize All variables that used in this project by required values.
     /* super loop for repeating process infinitely number of cycles */
     while (1) 
     {
