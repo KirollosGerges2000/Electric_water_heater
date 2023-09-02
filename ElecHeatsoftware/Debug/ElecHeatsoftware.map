@@ -771,11 +771,11 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xff8
+.debug_info     0x00000000      0xff9
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x52e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega16/avr5/crtatmega16.o
  .debug_info    0x0000052e       0xc3 ADC.o
- .debug_info    0x000005f1      0xa07 main.o
+ .debug_info    0x000005f1      0xa08 main.o
 
 .debug_abbrev   0x00000000      0x85b
  *(.debug_abbrev)
@@ -783,11 +783,11 @@ END GROUP
  .debug_abbrev  0x000004e7       0x7c ADC.o
  .debug_abbrev  0x00000563      0x2f8 main.o
 
-.debug_line     0x00000000      0xa66
+.debug_line     0x00000000      0xa68
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega16/avr5/crtatmega16.o
  .debug_line    0x00000116       0xe4 ADC.o
- .debug_line    0x000001fa      0x86c main.o
+ .debug_line    0x000001fa      0x86e main.o
 
 .debug_frame    0x00000000      0x260
  *(.debug_frame)

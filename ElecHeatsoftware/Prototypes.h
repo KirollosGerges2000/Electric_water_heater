@@ -4,19 +4,70 @@ Header File
 Author:Kirollos Gerges */
 
 
+/*initialize all variables that needed in this
+Project by appropriate data types and keywords
+for its specific functions
+*/
 
+ /*Deceleration about input milli_volt 
+ that processed it
+ to be temperature value ; 
+ must to be volatile  as  the value changes 
+ each time the cell is calculated.*/
 volatile uint16 volt=0;
+
+/*After processing volt ; variable 'x' will 
+be the temperature reading than processed from measured 
+milli_volt and convert it to temperature_reading by analog 
+Digital converter Driver; must to be volatile  as  
+the value changes each time the cell is calculated.*/
 volatile f32 x=0 ;
+
+/*
+According to requirements, Specifications of Temperature sensing.5
+"The decision to turn ON or OFF either the “Heating Element” 
+or the “Cooling Element” based on the average of 
+the last 10 temperature readings " that measured from
+ temperature sensor and using static makes the variable retain its 
+ value among multiple function calls.; 
+*/
 static f32  average=0;
+
+/*
+Deceleration The Sum of 10 temperature reading that divide on 10 
+to be result of average
+*/
 f32 sum=0;
+
+
 int16 counter= 0;
+
 u8 i=0;
+
 u8 flag=0;
+
 u8 Start_Mode=0;
+
 s64 counter_for_Timer=0;
 
+
+
+/*The #ifndef directive is one of the widely used used directives in C.
+ It allows conditional compilations. During the compilation process.
+ the preprocessor is supposed to determine if any provided macros exist before any subsequent code is included.*/
 #ifndef PROTOTYPES_H
+
+/*The #define PROTOTYPES_H creates a macro,
+which is the association of an identifier 
+or parameterized identifier with a token string*/
 #define PROTOTYPES_H
+
+/*
+The function prototypes are used to inform the compiler about the number of arguments,
+ the needed data types of a function parameter, 
+ and the function's return type. 
+ The compiler uses this information to
+  cross-check function signatures before invoking them*/
 void Temperature_reading(void);
 void Avg_reading(void);
 void setting_temp(void);
