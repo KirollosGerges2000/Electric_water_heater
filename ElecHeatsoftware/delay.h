@@ -87,7 +87,7 @@ static __inline__ void _delay_us(double __us) __attribute__((__always_inline__))
 static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
 #endif
 
-
+#ifdef F_CPU
 /* prevent compiler error by supplying a default */
 # warning "F_CPU not defined for <util/delay.h>"
 /** \ingroup util_delay
@@ -106,7 +106,7 @@ static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__))
     integer value.
  */
 # define F_CPU 1000000UL
-
+#endif
 
 #ifndef __OPTIMIZE__
 # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
