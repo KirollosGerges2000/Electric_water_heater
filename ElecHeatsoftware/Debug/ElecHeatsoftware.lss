@@ -19,15 +19,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 0000087b  00000000  00000000  000021a4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000a6a  00000000  00000000  00002a1f  2**0
+  8 .debug_line   00000a6f  00000000  00000000  00002a1f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000260  00000000  00000000  0000348c  2**2
+  9 .debug_frame  00000260  00000000  00000000  00003490  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000670  00000000  00000000  000036ec  2**0
+ 10 .debug_str    00000670  00000000  00000000  000036f0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000004ec  00000000  00000000  00003d5c  2**0
+ 11 .debug_loc    000004ec  00000000  00000000  00003d60  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000f0  00000000  00000000  00004248  2**0
+ 12 .debug_ranges 000000f0  00000000  00000000  0000424c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -218,10 +218,10 @@ unsigned short ADC_readChannel(unsigned char channel_num)
      14a:	08 95       	ret
 
 0000014c <DATA_DIRECTION_REGISTER>:
-// turns a BCD-encoded byte back into a standard one
 u8 Bcd_to_decimal (u8 value)
 {
 	value=TWDR;
+	//return the BCD_TO_DECIMAL process
 	return( ((value>>4)*10)+(value &0xF));
 }
      14c:	8f 34       	cpi	r24, 0x4F	; 79
@@ -740,27 +740,36 @@ u8 Bcd_to_decimal (u8 value)
 
 000005be <EEPROM_write_read>:
 
+/*Driver Function  that stored data on EEPROM as a parameter then retrieve it by return it stored value.*/
 u8 EEPROM_write_read(u8 stored_data)
 {
      5be:	cf 93       	push	r28
      5c0:	c8 2f       	mov	r28, r24
+	/* Declaration about Data that we will fetching it from EEPROM*/
 	u8 data;
+	//initialize the IIC Protocol
 	I2C_Init();
      5c2:	0e 94 6c 02 	call	0x4d8	; 0x4d8 <I2C_Init>
+	//Start IIC protocol with its address"0xA0"
 	I2C_Start(0xA0);
      5c6:	80 ea       	ldi	r24, 0xA0	; 160
      5c8:	0e 94 8c 02 	call	0x518	; 0x518 <I2C_Start>
+	//Stored the required Data.
 	I2C_Write(stored_data);
      5cc:	8c 2f       	mov	r24, r28
      5ce:	0e 94 d6 02 	call	0x5ac	; 0x5ac <I2C_Write>
+	//Restart to read this Data that user stored it @ FIRST
 	I2C_Repeated_Start(0xA1);
      5d2:	81 ea       	ldi	r24, 0xA1	; 161
      5d4:	0e 94 99 02 	call	0x532	; 0x532 <I2C_Repeated_Start>
+	//Retrieve data at this variable .
 	data=I2C_Read_Nack ();
      5d8:	0e 94 a6 02 	call	0x54c	; 0x54c <I2C_Read_Nack>
      5dc:	c8 2f       	mov	r28, r24
+	//Stop COM between Layers.
 	I2C_Stop();
      5de:	0e 94 ad 02 	call	0x55a	; 0x55a <I2C_Stop>
+	//return the data that stored From this function.
 	return data;
 	
 }
@@ -959,40 +968,66 @@ EEPROM_write_read(counter);
      6e2:	08 95       	ret
 
 000006e4 <ON_MODE_Process>:
-	
-}
-
-void ON_MODE_Process (void)
 {
+	/*
+	While The Electric water Heater set;
+	Execute The System.
+	*/
 	while(flag==1)
      6e4:	8d c0       	rjmp	.+282    	; 0x800 <ON_MODE_Process+0x11c>
 	{
-		
+		//According to requirements, Specifications –Seven Segments.1|2
 		current_water_temperature();
      6e6:	0e 94 c4 02 	call	0x588	; 0x588 <current_water_temperature>
+		to the requirements "Specifications
+		–Heating/Cooling Elements"
+		of setting temperature,
+		Fluctions.
+		*/
 		ELEMENTS();
      6ea:	0e 94 e6 01 	call	0x3cc	; 0x3cc <ELEMENTS>
+		
+		//waiting until user pressed ON/OFF Button.
+		//To disactivate the Electric water Heater.
 		on_off_mode();
      6ee:	0e 94 51 02 	call	0x4a2	; 0x4a2 <on_off_mode>
+		
+		/*
+		In case user press upper or lower buttons
+		*/
 		if(((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))))
      6f2:	b3 99       	sbic	0x16, 3	; 22
      6f4:	5b c0       	rjmp	.+182    	; 0x7ac <ON_MODE_Process+0xc8>
      6f6:	b2 99       	sbic	0x16, 2	; 22
      6f8:	59 c0       	rjmp	.+178    	; 0x7ac <ON_MODE_Process+0xc8>
      6fa:	82 c0       	rjmp	.+260    	; 0x800 <ON_MODE_Process+0x11c>
-		{
-			
-			while( counter_for_Timer<10 &&flag==1 ) //In testing and validation ,calibration
-			{
-				on_off_7_segment(1);
+		
+		/******** First___half____cycle********/
+		
+		
+	//SET the powering of seven segments .
+              on_off_7_segment(1);
      6fc:	81 e0       	ldi	r24, 0x01	; 1
      6fe:	0e 94 32 02 	call	0x464	; 0x464 <on_off_7_segment>
+			  permit user to control setting Mode
+			  by setting the temperature according to
+			  raise,lower temperature in
+			  the Electric water Heater.
+			  */
 				setting_temp();
      702:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <setting_temp>
+				Electric water Heater according
+				to the requirements "Specifications
+				–Heating/Cooling Elements"
+				of setting temperature,
+				Fluctions.*/
 				ELEMENTS();
      706:	0e 94 e6 01 	call	0x3cc	; 0x3cc <ELEMENTS>
+				//waiting until user pressed ON/OFF Button.
+				//To disactivate the Electric water Heater.
 				on_off_mode();
      70a:	0e 94 51 02 	call	0x4a2	; 0x4a2 <on_off_mode>
+				//per half cycle increment count by 1
 				counter_for_Timer++;
      70e:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
      712:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
@@ -1012,15 +1047,25 @@ void ON_MODE_Process (void)
      748:	70 93 65 00 	sts	0x0065, r23	; 0x800065 <__DATA_REGION_ORIGIN__+0x5>
      74c:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <__DATA_REGION_ORIGIN__+0x6>
      750:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <__DATA_REGION_ORIGIN__+0x7>
+				
+				/******** Second___half____cycle********/
+				
+				//SET the powering of seven segments.
+				//Toggle it seven segments is from requirements of specifications.
 				on_off_7_segment(0);
      754:	80 e0       	ldi	r24, 0x00	; 0
      756:	0e 94 32 02 	call	0x464	; 0x464 <on_off_7_segment>
+				/*Setting temperature Mode again*/
 				setting_temp();
      75a:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <setting_temp>
+				/*Controlling Elements again*/
 				ELEMENTS();
      75e:	0e 94 e6 01 	call	0x3cc	; 0x3cc <ELEMENTS>
+				//waiting until user pressed ON/OFF Button.
+				//To disactivate the Electric water Heater.
 				on_off_mode();
      762:	0e 94 51 02 	call	0x4a2	; 0x4a2 <on_off_mode>
+				//per half cycle increment count by 1
 				counter_for_Timer++;
      766:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
      76a:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
@@ -1040,12 +1085,12 @@ void ON_MODE_Process (void)
      7a0:	70 93 65 00 	sts	0x0065, r23	; 0x800065 <__DATA_REGION_ORIGIN__+0x5>
      7a4:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <__DATA_REGION_ORIGIN__+0x6>
      7a8:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <__DATA_REGION_ORIGIN__+0x7>
-		ELEMENTS();
-		on_off_mode();
-		if(((INPUT_BIT(PINB,3) || INPUT_BIT(PINB,2))))
-		{
-			
-			while( counter_for_Timer<10 &&flag==1 ) //In testing and validation ,calibration
+			/*
+			while counter does not exceeded 5 second  
+			and For more safety must have evidence that
+			Electric water Heater is activate.
+			*/
+			while( counter_for_Timer<10 &&flag==1 ) 
      7ac:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
      7b0:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
      7b4:	40 91 62 00 	lds	r20, 0x0062	; 0x800062 <__DATA_REGION_ORIGIN__+0x2>
@@ -1062,11 +1107,11 @@ void ON_MODE_Process (void)
      7da:	81 30       	cpi	r24, 0x01	; 1
      7dc:	09 f4       	brne	.+2      	; 0x7e0 <ON_MODE_Process+0xfc>
      7de:	8e cf       	rjmp	.-228    	; 0x6fc <ON_MODE_Process+0x18>
+				//per half cycle increment count by 1
 				counter_for_Timer++;
-				
-				
-				
-			}
+				}
+				/*After terminates the scope and the setting_tempereture mode is Exited.
+				return The counter_for_Timer to its original initialization "0"*/
 			counter_for_Timer=0;
      7e0:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
      7e4:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
@@ -1076,18 +1121,18 @@ void ON_MODE_Process (void)
      7f4:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <__DATA_REGION_ORIGIN__+0x5>
      7f8:	10 92 66 00 	sts	0x0066, r1	; 0x800066 <__DATA_REGION_ORIGIN__+0x6>
      7fc:	10 92 67 00 	sts	0x0067, r1	; 0x800067 <__DATA_REGION_ORIGIN__+0x7>
-	
-}
-
-void ON_MODE_Process (void)
 {
+	/*
+	While The Electric water Heater set;
+	Execute The System.
+	*/
 	while(flag==1)
      800:	80 91 69 00 	lds	r24, 0x0069	; 0x800069 <flag>
      804:	81 30       	cpi	r24, 0x01	; 1
      806:	09 f4       	brne	.+2      	; 0x80a <ON_MODE_Process+0x126>
      808:	6e cf       	rjmp	.-292    	; 0x6e6 <ON_MODE_Process+0x2>
-				
-			}
+				/*After terminates the scope and the setting_tempereture mode is Exited.
+				return The counter_for_Timer to its original initialization "0"*/
 			counter_for_Timer=0;
 		}
 	}
@@ -1095,8 +1140,8 @@ void ON_MODE_Process (void)
      80a:	08 95       	ret
 
 0000080c <__vector_8>:
-void Temperature_reading(void); 
 #endif
+
 
 
 ISR (TIMER1_OVF_vect)    // Timer1 ISR

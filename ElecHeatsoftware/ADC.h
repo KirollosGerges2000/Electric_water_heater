@@ -5,7 +5,7 @@ Author:Kirollos Gerges */
 #ifndef ADC_H_
 #define ADC_H_
 
-
+//General purpose Input/output library  
 #include <avr/interrupt.h>
 
 /*Set a certain bit in any register */

@@ -5,6 +5,47 @@
  * Author : Kirollos
  */ 
 
+/********Abstract of Electric water Heater Project ********/
+/*
+.Heating water in your home can account for up to 20% of your monthly energy bills,
+ according to the U.S. Department of Energy. You might not think about your water heater much
+  (unless you suddenly run out of hot water!) but if your water heater isn't efficient, 
+  you could be wasting a lot of money. By switching to an electric water heater, you can save on energy costs, 
+  and make the most of your solar power investment.
+
+.In this guide, we will explain what an electric water heater is, the pros and cons of electric water heaters,
+ the benefits over gas water heaters, a buyers guide with tips on how to shop for an electric water heater, 
+ and why you should invest in electric water heating for your home, especially if you are going solar.
+*/
+
+
+/********About Safety and security , Misra Rule "C99" 2012********/
+/*
+.Fast Water Heater Company performs installations as safely as possible to protect you and your family.
+ Due to various injuries and accidents related to water heaters over the last ten years, 
+ most cities and counties have adopted either the 2006, 2009 or 2012 Uniform Plumbing Code
+  (or in the case of California, the California Plumbing Code).
+
+.When we perform your installation, we will inspect your water heater and ensure it is up to date on all relevant safety codes.
+
+.Also, on the back of your invoice, you will find a list of all of the state codes that are relevant for your installation
+*/
+
+/********Data about presenters and Deliverable this project********/
+/*This Project is presented to AMIT campony as a Graduation project  for Embedded software Diploma _Group Nasr_53 
+Developed by,Designed "Static ,Dynamic" by , Testing"static,Dynamic" by , integrated , calibration by :         
+Eng/Kirollos Gerges Asaad  Email:191800006@ecu.edu.eg                                                            */
+
+
+/*                                  
+An int is a keyword that references an integer data type. 
+An int data type used with the main() function that indicates the function should return an integer value.
+ When we use an int main() function, it is compulsory to write return 0; statement at the end of the main() function.
+  The return 0; statement represents that the program has been successfully executed,
+   whereas any other statement represents the unsuccessful termination of the program.
+*/
+
+
 //includes and complex drivers
 #include <avr/io.h> //General purpose Input/output library  
 #include <util/delay.h>  //Sys_Ticks library that has 16MHZ crystal frequency

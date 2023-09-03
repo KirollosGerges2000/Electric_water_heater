@@ -5,35 +5,61 @@
  *  Author: Kirollos
  */ 
 
-
+/*The #ifndef directive is one of the widely used used directives in C.
+ It allows conditional compilations. During the compilation process.
+ the preprocessor is supposed to determine if any provided macros exist before any subsequent code is included.*/
 #ifndef I2C_H_
+/*The #define I2C_H_ creates a macro, which is the association of an identifier or parameterized identifier with a token string*/
 #define  I2C_H_
 
-
+/*Deceleration about Function initialize the IIC protocol to begin communication */
 void I2C_Init();
+
+/*Deceleration about Function to start communication between EEPROM Module and  MCAL*/
 uint8_t I2C_Start(char Write_address);
+
+/*Deceleration about Function to start again that permit developer to read the data that write it in Stat mode
+communication between EEPROM Module and  MCAL                                      */
 uint8_t I2C_Repeated_Start(char read_address);
+
+/*Deceleration about Function to read data with generating Acknowledgments                             */
 char I2C_Read_Ack();
+
+/*Deceleration about Function to read data without generating Acknowledgments                         */
 char I2C_Read_Nack();
+
+/*Deceleration about Function to Write data on EEPROM Module                                         */
 void I2C_Write (u8 data);
+
+/*Deceleration about Function  to stop communication between layer after finishing                 */
 void I2C_Stop();
+
+/*Deceleration about Function to convert the parameter that in hexa_decimal form to ascii characters */
 void hex_to_ascii (u8 VALUE);
+
+/*Deceleration about Function to convert the parameter that in decimal form to hexa_decimal form    */
 char decimal_to_bcd(u8 val);
-// turns a BCD-encoded byte back into a standard one
+
+/* Deceleration about Function to turns a BCD-encoded byte back into a standard one .               */
 u8 Bcd_to_decimal (u8 value);
+
+/*Deceleration about Driver Function  that stored data on EEPROM as a parameter then retrieve it by return it stored value.*/
 u8 EEPROM_write_read(u8 stored_data);
+
 #endif /*I2C_H*/
 
 
 
+
+
+/*I2C initialization function*/
 	void I2C_Init()
 {
+	/* Reset TWSR Register   */
 	TWSR=0;
 	/*Get Bit rate register value by formula */
 	TWBR =((F_CPU/100000)-16)/(2*pow(4,(TWSR&((1<<TWPS0)|(1<<TWPS1)))));
 }
-
-/*I2C initialization function*/
 
 
 /*I2C start function*/
@@ -50,6 +76,9 @@ uint8_t I2C_Start(char Write_address)
 	return 0;
 }
 
+/*
+Function to start again that permit developer to read the data that write it in Stat mode
+communication between EEPROM Module and  MCAL                                      */
 uint8_t I2C_Repeated_Start(char read_address)
 {
 	/*Enable TWI, generate start condition and clear interrupt flag*/
@@ -116,10 +145,13 @@ void hex_to_ascii (u8 VALUE)
 	//  PORTD= bcd;
 	/*the function out that message sent to it */
 }
+
 /* converting from decimal  to Binary_coded_decimal*/
 char decimal_to_bcd(u8 val)
 {
-	u8 msb,lsb,hex;
+	//decelerations about msb,lsb,hex variables
+	u8 msb,lsb,hex; 
+	//Process of converting
 	msb=val/10;
 	lsb=val%10;
 	hex=((msb<<4)+lsb);
@@ -130,18 +162,28 @@ char decimal_to_bcd(u8 val)
 u8 Bcd_to_decimal (u8 value)
 {
 	value=TWDR;
+	//return the BCD_TO_DECIMAL process
 	return( ((value>>4)*10)+(value &0xF));
 }
 
+/*Driver Function  that stored data on EEPROM as a parameter then retrieve it by return it stored value.*/
 u8 EEPROM_write_read(u8 stored_data)
 {
+	/* Declaration about Data that we will fetching it from EEPROM*/
 	u8 data;
+	//initialize the IIC Protocol
 	I2C_Init();
+	//Start IIC protocol with its address"0xA0"
 	I2C_Start(0xA0);
+	//Stored the required Data.
 	I2C_Write(stored_data);
+	//Restart to read this Data that user stored it @ FIRST
 	I2C_Repeated_Start(0xA1);
+	//Retrieve data at this variable .
 	data=I2C_Read_Nack ();
+	//Stop COM between Layers.
 	I2C_Stop();
+	//return the data that stored From this function.
 	return data;
 	
 }
