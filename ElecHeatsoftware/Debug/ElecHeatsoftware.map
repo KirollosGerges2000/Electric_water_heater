@@ -68,12 +68,24 @@ Discarded input sections
  .text          0x00000000        0x0 ADC.o
  .data          0x00000000        0x0 ADC.o
  .bss           0x00000000        0x0 ADC.o
+ .text          0x00000000        0x0 Data Direction register.o
+ .data          0x00000000        0x0 Data Direction register.o
+ .bss           0x00000000        0x0 Data Direction register.o
+ .debug_line    0x00000000        0x0 Data Direction register.o
+ .debug_str     0x00000000      0x171 Data Direction register.o
+ .comment       0x00000000       0x31 Data Direction register.o
  .text          0x00000000        0x0 I2C.o
  .data          0x00000000        0x0 I2C.o
  .bss           0x00000000        0x0 I2C.o
  .debug_line    0x00000000        0x0 I2C.o
  .debug_str     0x00000000      0x15d I2C.o
  .comment       0x00000000       0x31 I2C.o
+ .text          0x00000000        0x0 Initialization variables.o
+ .data          0x00000000        0x0 Initialization variables.o
+ .bss           0x00000000        0x0 Initialization variables.o
+ .debug_line    0x00000000        0x0 Initialization variables.o
+ .debug_str     0x00000000      0x172 Initialization variables.o
+ .comment       0x00000000       0x31 Initialization variables.o
  .text          0x00000000        0x0 interrupt.o
  .data          0x00000000        0x0 interrupt.o
  .bss           0x00000000        0x0 interrupt.o
@@ -89,6 +101,12 @@ Discarded input sections
                 0x00000000        0x2 main.o
  .text.Bcd_to_decimal
                 0x00000000       0x18 main.o
+ .text          0x00000000        0x0 Prototypes.o
+ .data          0x00000000        0x0 Prototypes.o
+ .bss           0x00000000        0x0 Prototypes.o
+ .debug_line    0x00000000        0x0 Prototypes.o
+ .debug_str     0x00000000      0x164 Prototypes.o
+ .comment       0x00000000       0x31 Prototypes.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
@@ -258,9 +276,12 @@ Linker script and memory map
 
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega16/avr5/crtatmega16.o
 LOAD ADC.o
+LOAD Data Direction register.o
 LOAD I2C.o
+LOAD Initialization variables.o
 LOAD interrupt.o
 LOAD main.o
+LOAD Prototypes.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 END GROUP
@@ -783,11 +804,11 @@ END GROUP
  .debug_abbrev  0x000004e7       0x7c ADC.o
  .debug_abbrev  0x00000563      0x318 main.o
 
-.debug_line     0x00000000      0xa6f
+.debug_line     0x00000000      0xa71
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega16/avr5/crtatmega16.o
  .debug_line    0x00000116       0xe4 ADC.o
- .debug_line    0x000001fa      0x875 main.o
+ .debug_line    0x000001fa      0x877 main.o
 
 .debug_frame    0x00000000      0x260
  *(.debug_frame)

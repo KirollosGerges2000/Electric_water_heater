@@ -2,7 +2,13 @@
 Header File
 Author:Kirollos Gerges */
 
+/*The #ifndef directive is one of the widely used used directives in C.
+ It allows conditional compilations. During the compilation process.
+ the preprocessor is supposed to determine if any provided macros exist before any subsequent code is included.*/
 #ifndef ADC_H_
+
+/*The #define ADC_H_ creates a macro,
+ which is the association of an identifier or parameterized identifier with a token string*/
 #define ADC_H_
 
 //General purpose Input/output library  
@@ -28,6 +34,8 @@ Author:Kirollos Gerges */
 
 /* Check if a specific bit is cleared in any register and return true if yes */
 #define BIT_IS_CLEAR(REG,BIT) ( !(REG & (1<<BIT)) )
+
+
 /*
  * Description :
  * Function responsible for initialize the ADC driver.

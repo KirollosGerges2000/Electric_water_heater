@@ -4,6 +4,7 @@
  * Created: 8/14/2023 6:17:10 PM
  *  Author: Kirollos
  */ 
+//ADC Library that contains the  pre_processing definitive and prototypes
 #include "ADC.h"
 
 

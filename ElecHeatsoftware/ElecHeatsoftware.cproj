@@ -139,6 +139,9 @@
     <Compile Include="ADC.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Data Direction register.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Data Direction registers.h">
       <SubType>compile</SubType>
     </Compile>
@@ -149,6 +152,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="I2C.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Initialization variables.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Initialization variables.h">
@@ -164,6 +170,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Prototypes.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Prototypes.h">

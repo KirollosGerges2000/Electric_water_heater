@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 0000087b  00000000  00000000  000021a4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000a6f  00000000  00000000  00002a1f  2**0
+  8 .debug_line   00000a71  00000000  00000000  00002a1f  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000260  00000000  00000000  00003490  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -1140,10 +1140,10 @@ EEPROM_write_read(counter);
      80a:	08 95       	ret
 
 0000080c <__vector_8>:
-#endif
 
 
 
+/* Interrupt service routine that activate each 100ms to read a temperature value */
 ISR (TIMER1_OVF_vect)    // Timer1 ISR
 {
      80c:	1f 92       	push	r1
@@ -1163,12 +1163,15 @@ ISR (TIMER1_OVF_vect)    // Timer1 ISR
      828:	bf 93       	push	r27
      82a:	ef 93       	push	r30
      82c:	ff 93       	push	r31
-	TCNT1 = 65380;  // for 100 ms at 16 MHz  in Bin "1111 1111 0110 0100" , in Hexa_decimal "FF64"
+	// for 100 ms at 16 MHz  in Bin "1111 1111 0110 0100" , in Hexa_decimal "FF64"
+	TCNT1 = 65380; 
      82e:	84 e6       	ldi	r24, 0x64	; 100
      830:	9f ef       	ldi	r25, 0xFF	; 255
      832:	9d bd       	out	0x2d, r25	; 45
      834:	8c bd       	out	0x2c, r24	; 44
-		Temperature_reading();  //read temperature each 100 ms 
+	
+	  //read temperature each 100 ms 
+		Temperature_reading(); 
      836:	0e 94 57 01 	call	0x2ae	; 0x2ae <Temperature_reading>
 	
 		}
@@ -1192,24 +1195,28 @@ ISR (TIMER1_OVF_vect)    // Timer1 ISR
 
 0000085c <INT_interrupt>:
 
-
+/*Function to initialized the internal interrupt Timer1                       */
 void INT_interrupt (void)
 {
-	
-	TCNT1 = 65380;   // for 100 ms at 16 MHz  in Bin "1111 1111 0110 0100" , in Hexa_decimal "FF64" 
+	 // for 100 ms at 16 MHz  in Bin "1111 1111 0110 0100" , in Hexa_decimal "FF64" 
+	TCNT1 = 65380;  
      85c:	84 e6       	ldi	r24, 0x64	; 100
      85e:	9f ef       	ldi	r25, 0xFF	; 255
      860:	9d bd       	out	0x2d, r25	; 45
      862:	8c bd       	out	0x2c, r24	; 44
-	TCCR1A = 0x00;
+	//Reset TCCR1A register
+	TCCR1A = 0x00; 
      864:	1f bc       	out	0x2f, r1	; 47
-	TCCR1B = (1<<CS10) | (1<<CS12);;  // Timer mode with 1024 pre_scaler
+	// Timer mode with 1024 pre_scaler
+	TCCR1B = (1<<CS10) | (1<<CS12);  
      866:	85 e0       	ldi	r24, 0x05	; 5
      868:	8e bd       	out	0x2e, r24	; 46
-	TIMSK = (1 << TOIE1) ;   // Enable timer1 overflow interrupt(TOIE1)
+	// Enable timer1 overflow interrupt(TOIE1)
+	TIMSK = (1 << TOIE1) ;  
      86a:	84 e0       	ldi	r24, 0x04	; 4
      86c:	89 bf       	out	0x39, r24	; 57
-	sei();        // Enable global interrupts by setting global interrupt enable bit in SREG
+	 // Enable global interrupts by setting global interrupt enable bit in SREG
+	sei();        
      86e:	78 94       	sei
      870:	08 95       	ret
 

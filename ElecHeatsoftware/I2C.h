@@ -77,7 +77,7 @@ uint8_t I2C_Start(char Write_address)
 }
 
 /*
-Function to start again that permit developer to read the data that write it in Stat mode
+Function to start again that permit developer to read the data that write it in Start mode
 communication between EEPROM Module and  MCAL                                      */
 uint8_t I2C_Repeated_Start(char read_address)
 {
