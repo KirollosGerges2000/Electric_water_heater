@@ -88,6 +88,16 @@ Init_VARIABLES('S','S','I','R','R','R'); //Initialize All variables that used in
 			on_off_mode();
 		}
 		
+		/*In case of putting any data in new versions*/
+		else
+		{
+			 /*Rule 15.7 in Misra rules applies whenever an if statement is followed by one or more else if statements;
+		 the final else if shall be followed by an else statement.
+		  In the case of a simple if statement then the else statement need not be included.
+		   The requirement for a final else statement is defensive programming.*/
+  /* Implement any instruction rather than for updates*/
+		}
+		
 }
 /*Return 0 to terminates Function */
 return 0;
